@@ -10,15 +10,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.6",
+    "@mui/material": "^7.3.6",
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.2",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-validator": "^7.3.0",
+    "formik": "^2.4.9",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.9.6"
+    "react-router-dom": "^7.9.6",
+    "react-slick": "^0.31.0",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

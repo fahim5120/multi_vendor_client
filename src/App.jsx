@@ -1,23 +1,30 @@
+import { ThemeProvider } from '@mui/material';
+import Button from '@mui/material/Button'
+import customeTheme from './Theme/customTheme';
+import Home from './customer/pages/Home/Home';
+import Products from './customer/pages/Products/Products';
+import Footer from './customer/Footer/Footer';
+import ProductDeatails from './customer/pages/Products/ProductDetails/ProductDeatails';
+import Cart from './customer/pages/Cart/Cart';
+import Checkout from './customer/pages/Checkout/Checkout';
 
-import { Route, Routes } from 'react-router-dom';
 
 
-import AdminAuth from './admin/pages/Auth/AdminAuth';
 
 function App() {
   return (
-    <div className="App">
+    <div>
 
-      
-      <Routes>
-        <Route
-          path="/admin-login"
-          element={<AdminAuth />}
-        />
-        <Route path="/admin"
-         element={<h1>Admin Dashboard Page</h1>} />
+     <ThemeProvider theme={customeTheme}>
+     
 
-      </Routes>
+     {/* <Home/> */}
+     {/* <Products/> */}
+     {/* <ProductDeatails/> */}
+     {/* <Cart/> */}
+     <Checkout/>
+     <Footer/>
+     </ThemeProvider>
 
     </div>
   );
