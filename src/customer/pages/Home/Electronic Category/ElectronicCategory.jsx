@@ -67,7 +67,7 @@ import ElectronicCategoryCard from "./ElectronicCategoryCard";
 
 const ElectronicCategory = () => {
   return (
-    <div className="flex flex-wrap justify-between py-5 lg:px-20 border-b">
+    <div className="flex flex-wrap justify-between py-5 lg:px-20 border-b border-gray-300">
       {electronics.map((item, index) => (
         <ElectronicCategoryCard item={item} key={index} />
       ))}

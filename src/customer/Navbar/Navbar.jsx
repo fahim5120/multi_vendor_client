@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useTheme, useMediaQuery } from "@mui/material";
+import { useTheme, useMediaQuery, Button } from "@mui/material";
 import { mainCategory } from "../../data/category/mainCategory";
 import CategorySheet from "./CategorySheet";
+import Search from "@mui/icons-material/Search";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
+import Storefront from "@mui/icons-material/Storefront";
+import Avatar from "@mui/material/Avatar";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -33,7 +39,7 @@ const Navbar = () => {
                 }}
                 onMouseEnter={() => {
                   setShowSheet(true);
-                  setSelectedCategory(item.categoryid)
+                  setSelectedCategory(item.categoryid);
                 }}
                 key={item.categoryid}
                 className="mainCategory hover:text-[#00927c] cursor-pointer hover:border-b-2 h-[70px] px-4 border-[#00927c] flex items-center "
@@ -43,6 +49,30 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
+        <div className="flex items-center gap-5">
+          <IconButton>
+            <Search sx={{ fontSize: 29 }} />
+          </IconButton>
+          {false ? (
+            <Button  className="flex items-center gap-2">
+              <Avatar src="https://images.stockcake.com/public/2/5/b/25b212d6-d108-450a-b6d1-d497cbe9d1e2_large/handsome-man-portrait-stockcake.jpg" sx={{width:29,height:29}}/>
+              <h1>Rafeeq</h1>
+            </Button>
+          ) : (
+            <Button variant="contained" startIcon={<AccountCircle />}>
+              Login
+            </Button>
+          )}
+          <IconButton>
+            <FavoriteBorder sx={{ fontSize: 29 }} />
+          </IconButton>
+          <IconButton>
+            <AddShoppingCart sx={{ fontSize: 29 }} />
+          </IconButton>
+          <Button variant="contained" startIcon={<Storefront />}>
+            Become Seller
+          </Button>
+        </div>
       </div>
       {showSheet && (
         <div
@@ -50,7 +80,10 @@ const Navbar = () => {
           onMouseEnter={() => setShowSheet(true)}
           className="categorySheet absolute top-[4.4rem] left-20 right-20"
         >
-          <CategorySheet selectedCategory={selectedCategory} setShowSheet={setShowSheet}/>
+          <CategorySheet
+            selectedCategory={selectedCategory}
+            setShowSheet={setShowSheet}
+          />
         </div>
       )}
     </Box>
