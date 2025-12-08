@@ -45,8 +45,8 @@ const Checkout = () => {
 };
 
   return (
-    <div className="pt-10 px-5 sm:px-10 md:px-44 lg:px-60 min-h-screen">
-      <div className="space-y-5 lg:space-y-0 lg:grid-cols-3 lg:gap-9">
+    <Box className="pt-10 px-5 sm:px-10 md:px-44 lg:px-60 min-h-screen z-0">
+      <Box className="space-y-5 lg:space-y-0 lg:grid-cols-3 lg:gap-9">
         <div className="col-span-2 space-y-5">
           <div className="flex justify-between items-center">
             <span className="font-semibold">Selet Delivery Address</span>
@@ -97,14 +97,14 @@ const Checkout = () => {
 
           <section className="border border-gray-400 rounded-md ">
             <PricingCard />
-            <div className="p-5">
+            <Box className="p-5">
               <Button variant="contained" fullWidth sx={{ py: "11px" }}>
                 Check Out
               </Button>
-            </div>
+            </Box>
           </section>
         </div>
-      </div>
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}
@@ -115,7 +115,7 @@ const Checkout = () => {
           <AddressForm />
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 };
 
