@@ -8,6 +8,7 @@ import ProductDeatails from './customer/pages/Products/ProductDetails/ProductDea
 import Cart from './customer/pages/Cart/Cart';
 import Checkout from './customer/pages/Checkout/Checkout';
 import Navbar from './customer/Navbar/Navbar';
+import Profile from './customer/pages/Order/Profile';
 
 
 
@@ -19,11 +20,12 @@ function App() {
      <ThemeProvider theme={customeTheme}>
      <Navbar/>
 
-     <Home/>
+     {/* <Home/> */}
      {/* <Products/> */}
      {/* <ProductDeatails/> */}
      {/* <Cart/> */}
      {/* <Checkout/> */}
+     <Profile/>
      <Footer/>
      </ThemeProvider>
 
