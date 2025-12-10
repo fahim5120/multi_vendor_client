@@ -79,12 +79,10 @@ const SellerDrawerList = ({ toggleDrawer }) => {
 
   const handleClick = (item) => {
     if (item.name === "Logout") {
-      
-        handleLogout();
+      handleLogout();
     }
-      navigate(item.path);
-      //    if(toggleDrawer) toggleDrawer(false)
-    
+    navigate(item.path);
+    //    if(toggleDrawer) toggleDrawer(false)
   };
   return (
     <div className="h-full">
@@ -97,8 +95,9 @@ const SellerDrawerList = ({ toggleDrawer }) => {
               className="pr-9 cursor-pointer"
             >
               <p
-                className={`${location.pathname === item.path ? "bg-[teal] text-white":""
-                    }  flex items-center px-5 py-3 rounded-r-full`}
+                className={`${
+                  location.pathname === item.path ? "bg-[teal] text-white" : ""
+                }  flex items-center px-5 py-3 rounded-r-full`}
               >
                 <ListItemIcon color="white">
                   {location.pathname === item.path
@@ -110,8 +109,8 @@ const SellerDrawerList = ({ toggleDrawer }) => {
             </div>
           ))}
         </div>
-         <div className="space-y-2">
-            <Divider/>
+        <div className="space-y-2">
+          <Divider />
           {menu2.map((item, index) => (
             <div
               onClick={() => handleClick(item)}
@@ -119,8 +118,9 @@ const SellerDrawerList = ({ toggleDrawer }) => {
               className="pr-9 cursor-pointer"
             >
               <p
-                className={`${location.pathname === item.path ? "bg-[teal] text-white":""
-                    }  flex items-center px-5 py-3 rounded-r-full`}
+                className={`${
+                  location.pathname === item.path ? "bg-[teal] text-white" : ""
+                }  flex items-center px-5 py-3 rounded-r-full`}
               >
                 <ListItemIcon color="white">
                   {location.pathname === item.path
@@ -132,7 +132,6 @@ const SellerDrawerList = ({ toggleDrawer }) => {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );

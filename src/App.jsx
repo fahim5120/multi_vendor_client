@@ -30,7 +30,11 @@ function App() {
 
 
 {/* sellerRoutes */}
-<SellerDashboard/>
+<Routes>
+  <Route path="/seller/*" element={<SellerDashboard/>}/>
+</Routes>
+
+{/* <SellerDashboard/> */}
 
 
 
@@ -53,7 +57,7 @@ function App() {
           <Route path="/account/*" element={<Profile />}></Route>
         </Routes> */}
 
-        <Footer />
+        {/* <Footer /> */}
       </ThemeProvider>
     </div>
   );
