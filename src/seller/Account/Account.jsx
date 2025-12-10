@@ -1,8 +1,12 @@
 import React from 'react'
+import SellerProfile from './SellerProfile'
+
 
 const Account = () => {
   return (
-    <div>Account</div>
+    <div>
+       <SellerProfile/>
+    </div>
   )
 }
 
