@@ -61,7 +61,7 @@ const Navbar = () => {
               <h1>Rafeeq</h1>
             </Button>
           ) : (
-            <Button variant="contained" startIcon={<AccountCircle />}>
+            <Button onClick={()=>navigate("/login")} variant="contained" startIcon={<AccountCircle />}>
               Login
             </Button>
           )}
@@ -71,7 +71,7 @@ const Navbar = () => {
           <IconButton onClick={()=>navigate("/cart")}>
             <AddShoppingCart sx={{ fontSize: 29 }} />
           </IconButton>
-          <Button variant="contained" startIcon={<Storefront />}>
+          <Button onClick={()=>navigate("/become-seller")} variant="contained" startIcon={<Storefront />}>
             Become Seller
           </Button>
         </div>

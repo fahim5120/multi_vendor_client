@@ -11,6 +11,9 @@ import Navbar from "./customer/Navbar/Navbar";
 import Profile from "./customer/pages/Order/Profile";
 import { Route, Routes } from "react-router";
 import SellerDashboard from "./seller/SellerDashboard/SellerDashboard";
+import BecomeSeller from "./Auth/Become Seller/BecomeSeller";
+import CustomerRoutes from "./routes/CustomerRoutes";
+import Auth from "./Auth/Login/Auth";
 
 function App() {
   return (
@@ -31,7 +34,10 @@ function App() {
 
 {/* sellerRoutes */}
 <Routes>
+   <Route path="/become-seller" element={<BecomeSeller/>}/>
   <Route path="/seller/*" element={<SellerDashboard/>}/>
+   <Route path="/login/" element={<Auth/>}/>
+   <Route path="/*" element={<CustomerRoutes/>}/>
 </Routes>
 
 {/* <SellerDashboard/> */}
