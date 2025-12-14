@@ -14,6 +14,8 @@ import SellerDashboard from "./seller/SellerDashboard/SellerDashboard";
 import BecomeSeller from "./Auth/Become Seller/BecomeSeller";
 import CustomerRoutes from "./routes/CustomerRoutes";
 import Auth from "./Auth/Login/Auth";
+import Dashboard from "./admin/Dashboard/Dashboard";
+
 
 function App() {
   return (
@@ -36,6 +38,7 @@ function App() {
 <Routes>
    <Route path="/become-seller" element={<BecomeSeller/>}/>
   <Route path="/seller/*" element={<SellerDashboard/>}/>
+   <Route path="/admin/*" element={<Dashboard/>}/>
    <Route path="/login/" element={<Auth/>}/>
    <Route path="/*" element={<CustomerRoutes/>}/>
 </Routes>
