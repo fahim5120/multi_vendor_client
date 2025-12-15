@@ -15,7 +15,7 @@ const Navbar = ({ DrawerList }) => {
   };
 
   return (
-    <div className="h-[10vh] flex items-center px-5 border-b border-gray-400">
+    <div className="h-[10vh] flex items-center px-5 border-b border-gray-300">
       <div className="flex items-center gap-3">
         <IconButton onClick={toggleDrawer(true)} color="primary">
           <MenuIcon color="primary" />

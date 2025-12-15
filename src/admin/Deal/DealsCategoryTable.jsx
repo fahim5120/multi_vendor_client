@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import HomeCategoryTable from "../HomePage/HomeCategoryTable";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,48 +41,10 @@ const rows = [
   createData("Cupcake", 305, 3.7, 67, 4.3),
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
-
+const image="https://sm.pcmag.com/pcmag_me/photo/default/macbook-6_hgfm.jpg "
 export default function DealCategoryTable() {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>No</StyledTableCell>
-            <StyledTableCell>Image</StyledTableCell>
-            <StyledTableCell>Category</StyledTableCell>
-            <StyledTableCell>Discount</StyledTableCell>
-            <StyledTableCell align="right">Edit</StyledTableCell>
-            <StyledTableCell align="right">Delete</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row, index) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {index}
-              </StyledTableCell>
-
-              <StyledTableCell align="right">
-                {" "}
-                <img
-                  className="w-20 rounded-md"
-                  src="https://m.media-amazon.com/images/I/51Jd5JpSSuL._AC_UY1000_.jpg"
-                  alt=""
-                />
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">₹12495</StyledTableCell>
-              <StyledTableCell align="right">
-                <IconButton>
-                  <EditIcon color="primary" />
-                </IconButton>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <HomeCategoryTable image={image}/>
   );
 }
 //https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSeJPd5pE6SUPYguDl3djtVfjfhzUg6CHoLDKwUsMPzIKzoo8l9EhYmvXTiRzZkOLNt0kR3DGQqsmonXAWCY5ADbgNoVqpFPLkUi8tkRkDt4xZQcyUvt9vY

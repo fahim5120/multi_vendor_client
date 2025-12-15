@@ -51,7 +51,7 @@ export default function HomeCategoryTable({image}) {
               <StyledTableCell >Id</StyledTableCell>
               <StyledTableCell >Image</StyledTableCell>
               <StyledTableCell align="right">Category</StyledTableCell>
-              <StyledTableCell align="right">Action</StyledTableCell>
+              <StyledTableCell align="right">update</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

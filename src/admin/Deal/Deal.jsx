@@ -26,7 +26,7 @@ const Deal = () => {
         ) : activeTab === "Categories" ? (
           <DealsCategoryTable />
         ) : (
-          <div className="mt-5 border-t flex flex-col justify-center items-center h-[70vh]">
+          <div className="mt-5 border-t border-gray-300 flex flex-col justify-center items-center h-[70vh]">
             <CreateDealForm />
           </div>
         )}
