@@ -1,10 +1,14 @@
-import { Button } from "@mui/material";
+import { Button, Snackbar } from "@mui/material";
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+import { useEffect } from "react";
+import { useAppSelector } from "../../Redux Toolkit/store";
 
 const Auth = () => {
+  const {auth}=useAppSelector(store=>store)
   const [isLogin, setIsLogin] = useState(false);
+
   return (
     <div className="flex justify-center h-[90vh] items-center">
       <div className="max-w-md h-[85vh] rounded-md  shadow-lg ">
@@ -30,6 +34,13 @@ const Auth = () => {
           </div>
         </div>
       </div>
+      <Snackbar
+  open={auth.otpSent}
+  autoHideDuration={6000}
+  // onClose={handleClose}
+  message="otp sebt successfully"
+  
+/>
     </div>
   );
 };

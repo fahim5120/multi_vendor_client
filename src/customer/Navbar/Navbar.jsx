@@ -12,8 +12,10 @@ import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
 import Storefront from "@mui/icons-material/Storefront";
 import Avatar from "@mui/material/Avatar";
 import {useNavigate } from "react-router";
+import { useAppSelector } from "../../Redux Toolkit/store";
 
 const Navbar = () => {
+   const { user} = useAppSelector((store) => store);
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
   const [showSheet, setShowSheet] = useState(false);
@@ -32,6 +34,7 @@ const Navbar = () => {
             )}
             <h1 onClick={()=>navigate("/")} className="logo text-lg md:text-2xl cursor-pointer ">Buyza</h1>
           </div>
+
 
           <ul className="flex items-center font-medium text-gray-800 ">
             {mainCategory.map((item) => (
@@ -55,10 +58,10 @@ const Navbar = () => {
           <IconButton>
             <Search sx={{ fontSize: 29 }} />
           </IconButton>
-          {false ? (
+          { user.user?.fullName ?(
             <Button  className="flex items-center gap-2" onClick={()=>navigate("/account")}>
               <Avatar src="https://images.stockcake.com/public/2/5/b/25b212d6-d108-450a-b6d1-d497cbe9d1e2_large/handsome-man-portrait-stockcake.jpg" sx={{width:29,height:29}}/>
-              <h1>Rafeeq</h1>
+              <h1>{user.user?.fullName}</h1>
             </Button>
           ) : (
             <Button onClick={()=>navigate("/login")} variant="contained" startIcon={<AccountCircle />}>

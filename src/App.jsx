@@ -15,15 +15,23 @@ import BecomeSeller from "./Auth/Become Seller/BecomeSeller";
 import CustomerRoutes from "./routes/CustomerRoutes";
 import Auth from "./Auth/Login/Auth";
 import Dashboard from "./admin/Dashboard/Dashboard";
-
+import { useAppDispatch, useAppSelector } from "./Redux Toolkit/store";
+import { useEffect } from "react";
+import { fetchUserProfile } from "./Redux Toolkit/features/customer/userSlice";
 
 function App() {
+  const dispatch = useAppDispatch();
+  const { auth } = useAppSelector((store) => store);
+  // Fetch profiles if JWT exists
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt || auth.jwt) {
+      dispatch(fetchUserProfile(jwt));
+    }
+  }, [auth.jwt]);
   return (
     <div>
       <ThemeProvider theme={customeTheme}>
-
-
-      
         {/* <Home/> */}
         {/* <Products/> */}
         {/* <ProductDeatails/> */}
@@ -31,28 +39,19 @@ function App() {
         {/* <Checkout/> */}
         {/* <Profile /> */}
 
+        {/* sellerRoutes */}
+        <Routes>
+          <Route path="/become-seller" element={<BecomeSeller />} />
+          <Route path="/seller/*" element={<SellerDashboard />} />
+          <Route path="/admin/*" element={<Dashboard />} />
+          <Route path="/login/" element={<Auth />} />
+          <Route path="/*" element={<CustomerRoutes />} />
+        </Routes>
 
+        {/* <SellerDashboard/> */}
 
-
-{/* sellerRoutes */}
-<Routes>
-   <Route path="/become-seller" element={<BecomeSeller/>}/>
-  <Route path="/seller/*" element={<SellerDashboard/>}/>
-   <Route path="/admin/*" element={<Dashboard/>}/>
-   <Route path="/login/" element={<Auth/>}/>
-   <Route path="/*" element={<CustomerRoutes/>}/>
-</Routes>
-
-{/* <SellerDashboard/> */}
-
-
-
-
-
-
-
-{/* customer Routes */}
-  {/* <Navbar /> */}
+        {/* customer Routes */}
+        {/* <Navbar /> */}
         {/* <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/products/:categoryId" element={<Products />}>
