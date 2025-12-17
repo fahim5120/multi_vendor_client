@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../../Config/Api";
 import { resetUserState } from "../customer/userSlice";
+import { resetSellerAuthState } from "../seller/sellerAuthentication";
 
 const API_URL = "/api/auth";
 
@@ -189,6 +190,6 @@ export const performLogout = () => async (dispatch) => {
   dispatch(logout());
   dispatch(resetUserState());
   localStorage.removeItem("jwt")
-  // dispatch(resetCartState());
+  dispatch(resetSellerAuthState());
 };
 export default authSlice.reducer;
