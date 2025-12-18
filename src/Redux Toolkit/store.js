@@ -12,6 +12,11 @@ import sellerAuthReducer from "./features/seller/sellerAuthentication";
 import sellerOrderReducer from "./features/seller/sellerOrderSlice";
 import sellerProductReducer from "./features/seller/sellerProductSlice";
 import sellerreducer from "./features/seller/sellerSlice";
+import transactionReducer from "./features/seller/transactionSlice";
+
+import adminSlice from "./features/admin/adminSlice";
+import dealSlice from "./features/admin/dealSlice";
+import AdmincouponReducer from "./features/admin/CouponSlice";
 
 const rootReducer = combineReducers({
   // customer
@@ -28,6 +33,12 @@ const rootReducer = combineReducers({
   sellerOrder: sellerOrderReducer,
   sellerProduct: sellerProductReducer,
   seller: sellerreducer,
+  transaction: transactionReducer,
+
+  //admin reducer
+  admin: adminSlice,
+  deal: dealSlice,
+  adminCoupon: AdmincouponReducer,
 });
 export const store = configureStore({
   reducer: rootReducer,

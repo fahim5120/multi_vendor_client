@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import axios from "axios";
-import { sendLoginSignupOtp } from "../Customer/AuthSlice";
+// import axios from "axios";
+// import { sendLoginSignupOtp } from "../customer/AuthSlice";
 import { api } from "../../../Config/Api";
+
 
 const initialState = {
   otpSent: false,
