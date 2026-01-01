@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
 import { api } from "../../../Config/Api";
 
 const API_URL = "/sellers";
@@ -254,6 +254,8 @@ const sellerSlice = createSlice({
 });
 
 export default sellerSlice.reducer;
+
+
 
 
 

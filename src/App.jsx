@@ -18,18 +18,20 @@ import Dashboard from "./admin/Dashboard/Dashboard";
 import { useAppDispatch, useAppSelector } from "./Redux Toolkit/store";
 import { useEffect } from "react";
 import { fetchUserProfile } from "./Redux Toolkit/features/customer/userSlice";
+import { fetchSellerProfile } from "./Redux Toolkit/features/seller/sellerSlice";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { auth } = useAppSelector((store) => store);
+  const  auth  = useAppSelector((store) => store.auth);
   // Fetch profiles if JWT exists
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (jwt || auth.jwt) {
       dispatch(fetchUserProfile(jwt));
+      dispatch(fetchSellerProfile(jwt))
     }
-  }, [auth.jwt]);
-  return (
+  }, [auth.jwt, auth.role]);
+  return (   
     <div>
       <ThemeProvider theme={customeTheme}>
         {/* <Home/> */}

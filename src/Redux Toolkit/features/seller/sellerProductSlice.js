@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../../Config/Api";
 
-const API_URL = "/api/sellers/product";
+const API_URL = "/api/sellers/products";
 
 // Fetch seller products
 export const fetchSellerProducts = createAsyncThunk(
@@ -21,6 +21,21 @@ export const fetchSellerProducts = createAsyncThunk(
 );
 
 // Create product
+// export const createProduct = createAsyncThunk(
+//   "sellerProduct/createProduct",
+//   async ({ jwt, request }, { rejectWithValue }) => {
+//     try {
+//       const response = await api.post(API_URL, request, {
+//         headers: { Authorization: `Bearer ${jwt}` },
+//       });
+//       console.log("create product", response.data);
+//       return response.data;
+//     } catch (error) {
+//       console.log("error", error);
+//       return rejectWithValue(error);
+//     }
+//   }
+// );
 export const createProduct = createAsyncThunk(
   "sellerProduct/createProduct",
   async ({ jwt, request }, { rejectWithValue }) => {
@@ -28,14 +43,16 @@ export const createProduct = createAsyncThunk(
       const response = await api.post(API_URL, request, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      console.log("create seller product", response.data);
+       console.log("create product", response);
       return response.data;
     } catch (error) {
-      console.log("error", error);
-      return rejectWithValue(error);
+      return rejectWithValue(
+        error?.response?.data?.message || "Failed to create product"
+      );
     }
   }
 );
+
 
 // Update product
 export const updateProduct = createAsyncThunk(
@@ -94,6 +111,7 @@ const sellerProductSlice = createSlice({
       .addCase(createProduct.fulfilled, (state, action) => {
         state.products.push(action.payload);
         state.loading = false;
+         state.error = "";
         // state.productCreated = true;
       })
       .addCase(createProduct.rejected, (state, action) => {
@@ -113,8 +131,7 @@ const sellerProductSlice = createSlice({
         const index = state.products.findIndex(
           (product) => product._id === action.payload._id
         );
-
-        state.products[index] = action.payload;
+          state.products[index] = action.payload;
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.loading = false;

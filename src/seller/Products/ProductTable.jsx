@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import {  useAppSelector } from "../../Redux Toolkit/store";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,6 +43,7 @@ const rows = [
 ];
 
 export default function ProductTable() {
+  const {sellerProduct}=useAppSelector(store=>store)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -56,23 +58,23 @@ export default function ProductTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {sellerProduct.products.map((item) => (
+            <StyledTableRow key={item.id}>
               <StyledTableCell component="th" scope="row">
                 <div className="flex gap-1 flex-wrap">
-                  {[1, 1, 1, 1].map((item,index) => (
+                  {item.images?.map((img,index) => (
                     <img
                     className="w-20 rounded-md"
                     key={index}
-                      src="https://m.media-amazon.com/images/I/81jo+i4pLfL._AC_SY445_.jpg"
+                      src={img}
                       alt="productImg"
                     />
                   ))}
                 </div>
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+              <StyledTableCell align="right">{item.title}</StyledTableCell>
+              <StyledTableCell align="right">₹{item.mrpPrice}</StyledTableCell>
+              <StyledTableCell align="right">₹{item.sellingPrice}</StyledTableCell>
               <StyledTableCell align="right">
                 <Button size="small">
                     in_stock 

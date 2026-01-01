@@ -23,7 +23,7 @@ export const fetchUserOrderHistory = createAsyncThunk(
       const response = await api.get(`${API_URL}/user`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      console.log("fetch user ordder history", response.data);
+      console.log("fetch user order history", response.data);
       return response.data;
     } catch (error) {
       console.log("error", error?.response);
@@ -58,8 +58,8 @@ export const createOrder = createAsyncThunk(
   "orders/createOrder",
   async ({ address, jwt, paymentGateway }, { rejectWithValue }) => {
     try {
-      const response = await api.post(
-        API_URL,
+      const response = await api.post(`${API_URL}`
+        ,
         { shippingAddress: address },
         {
           headers: { Authorization: `Bearer ${jwt}` },

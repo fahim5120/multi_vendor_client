@@ -1,12 +1,13 @@
 import { Button, Snackbar } from "@mui/material";
 import React, { useState } from "react";
-import LoginForm from "./LoginForm";
+
 import SignupForm from "./SignupForm";
 import { useEffect } from "react";
 import { useAppSelector } from "../../Redux Toolkit/store";
+import LoginForm from "./LoginForm.jsx";
 
 const Auth = () => {
-  const {auth}=useAppSelector(store=>store)
+  const auth=useAppSelector(store=>store.auth)
   const [isLogin, setIsLogin] = useState(false);
 
   return (
@@ -38,7 +39,7 @@ const Auth = () => {
   open={auth.otpSent}
   autoHideDuration={6000}
   // onClose={handleClose}
-  message="otp sebt successfully"
+  message="otp sent successfully"
   
 />
     </div>
@@ -46,3 +47,6 @@ const Auth = () => {
 };
 
 export default Auth;
+
+
+

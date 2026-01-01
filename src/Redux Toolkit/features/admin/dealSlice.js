@@ -37,7 +37,7 @@ export const getAllDeals = createAsyncThunk(
     try {
       const response = await api.get("/admin/deals", {
         headers: {
-          "Content-Type": "application/json",
+          // "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       });

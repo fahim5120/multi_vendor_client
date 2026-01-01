@@ -12,6 +12,8 @@ import BecomeSellerStep1 from "./BecomeSellerStep1";
 import BecomeSellerStep2 from "./BecomeSellerStep2";
 import BecomeSellerStep3 from "./BecomeSellerStep3";
 import BecomeSellerStep4 from "./BecomeSellerStep4";
+import { useAppDispatch } from "../../Redux Toolkit/store";
+import { createSeller } from "../../Redux Toolkit/features/seller/sellerAuthentication";
 
 const steps = [
   "Tax Details & Mobile",
@@ -22,14 +24,16 @@ const steps = [
 
 const SellerAccountForm = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues: {
       mobile: "",
-      otp: "",
+     
       GSTIN: "",
       pickupAddress: {
         name: "",
         mobile: "",
+      
         address: "",
         city: "",
         state: "",
@@ -53,12 +57,33 @@ const SellerAccountForm = () => {
       },
       password: "",
     },
-    // validationSchema: FormSchema,
-    onSubmit: (values) => {
-      console.log(values, "formik submitted");
-      // console.log("active step ", activeStep);
-      // dispatch(createSeller(formik.values));
-    },
+  
+    // onSubmit: (values) => {
+
+    //   console.log(values, "formik submitted");
+    //   dispatch(createSeller(values))
+      
+     
+    // },
+onSubmit: (values) => {
+  const a = values.pickupAddress;
+
+  if (
+    !a.name ||
+    !a.locality ||
+    !a.address ||
+    !a.city ||
+    !a.state ||
+    !a.pinCode ||
+    !a.mobile
+  ) {
+    alert("Plzz fill Pickup Address");
+    return;
+  }
+
+  dispatch(createSeller(values));
+}
+    
   });
   return (
     <div>

@@ -2,8 +2,10 @@ import { Avatar, Button, Divider } from "@mui/material";
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import ProfileFildCard from "../../customer/pages/Account/ProfileFildCard";
+import { useAppSelector } from "../../Redux Toolkit/store";
 
 const SellerProfile = () => {
+  const seller=useAppSelector(store=>store.seller)
   return (
     <div className="lg:px-20 pt-5 pb-20 space-y-20">
       <div className="w-full lg:w-[70%]">
@@ -23,11 +25,11 @@ const SellerProfile = () => {
           />
 
           <div>
-            <ProfileFildCard keys={"Seller Name"} value={"Ashraf Dummy"} />
+            <ProfileFildCard keys={"Seller Name"} value={seller.profile?.sellerName} />
             <Divider/>
-             <ProfileFildCard keys={"Seller Email"} value={"AshrafDummy@gmail.com"} />
+             <ProfileFildCard keys={"Seller Email"} value={seller.profile?.email} />
                <Divider/>
-              <ProfileFildCard keys={"Seller Mobile"} value={"dummy mobile"} />
+              <ProfileFildCard keys={"Seller Mobile"} value={seller.profile?.mobile || "dummy mobile"} />
           </div>
         </div>
       </div>

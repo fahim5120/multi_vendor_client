@@ -11,7 +11,7 @@ import homeCategoryReducer from "./features/customer/HomeCategorySlice";
 import sellerAuthReducer from "./features/seller/sellerAuthentication";
 import sellerOrderReducer from "./features/seller/sellerOrderSlice";
 import sellerProductReducer from "./features/seller/sellerProductSlice";
-import sellerreducer from "./features/seller/sellerSlice";
+import sellerReducer from "./features/seller/sellerSlice";
 import transactionReducer from "./features/seller/transactionSlice";
 
 import adminSlice from "./features/admin/adminSlice";
@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
   sellerAuth: sellerAuthReducer,
   sellerOrder: sellerOrderReducer,
   sellerProduct: sellerProductReducer,
-  seller: sellerreducer,
+  seller: sellerReducer,
   transaction: transactionReducer,
 
   //admin reducer

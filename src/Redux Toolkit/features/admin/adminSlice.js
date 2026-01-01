@@ -9,7 +9,7 @@ export const updateHomeCategory = createAsyncThunk(
   async ({ id, data }, { rejectWithValue }) => {
     try {
       const response = await api.patch(`${API_URL}/home-category/${id}`, data);
-      console.log("category updated", response);
+      console.log("update home category", response);
       return response.data;
     } catch (error) {
       console.log("error", error);
@@ -41,7 +41,7 @@ const initialState = {
   //   categoryUpdated: false,
 };
 
-const homeCategorySlice = createSlice({
+const HomeCategorySlice = createSlice({
   name: "homeCategory",
   initialState,
   reducers: {},
@@ -86,4 +86,4 @@ const homeCategorySlice = createSlice({
 });
 
 
-export default homeCategorySlice.reducer;
+export default HomeCategorySlice.reducer;

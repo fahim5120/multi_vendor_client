@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFormik } from "formik";
+import { useFormik, validateYupSchema } from "formik";
 import Grid from "@mui/material/Grid";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -23,19 +23,23 @@ import { electronicsLevelThree } from "../../data/category/levelThree/electronic
 import { womenLevelThree } from "../../data/category/levelThree/womenLevelThree";
 import { menLevelThree } from "../../data/category/levelThree/menLevelThree";
 import { furnitureLevelThree } from "../../data/category/levelThree/furnitureLevelThree";
+import { uploadToCloudinary } from "../../util/uploadToCloudnary";
+import { useAppDispatch } from "../../Redux Toolkit/store";
+import { createProduct } from "../../Redux Toolkit/features/seller/sellerProductSlice";
 
 const AddProducts = () => {
   const [uploadImage, setUploadImage] = useState(false);
+  const dispatch=useAppDispatch()
   const formik = useFormik({
     initialValues: {
       title: "",
       description: "",
       mrpPrice: "",
       sellingPrice: "",
-      quantity: "",
+      quantity: 100,
       color: "",
       images: [
-        "https://images.rawpixel.com/image_social_landscape/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL3JtMzYyLTAxYS1tb2NrdXAuanBn.jpg",
+
       ],
       category: "",
       category2: "",
@@ -43,13 +47,52 @@ const AddProducts = () => {
       sizes: "",
     },
     onSubmit: (value) => {
+      const jwt=localStorage.getItem("jwt")
+      value.quantity
+      dispatch(createProduct({jwt,request:value}))
       console.log(value);
     },
+//     onSubmit: (value) => {
+//   const jwt = localStorage.getItem("jwt");
+
+//   const payload = {
+//     ...value,
+//     mrpPrice: Number(value.mrpPrice),
+//     sellingPrice: Number(value.sellingPrice),
+//   };
+
+//   dispatch(createProduct({ jwt, request: payload }));
+// }
+
   });
 
-  const handleImageChange = () => {
-    console.log("handle iamge change");
-  };
+//   const handleImageChange = async(event) => {
+// const file=event.target.files[0]
+// setUploadImage(true)
+// const image=await uploadToCloudinary(file)
+// formik.setFieldValue("image",[...formik.values.images,image]);
+// setUploadImage(false)
+//     console.log("handle image change");
+//   };
+
+const handleImageChange = async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+
+  setUploadImage(true);
+
+  const imageUrl = await uploadToCloudinary(file);
+
+  if (imageUrl) {
+    formik.setFieldValue("images", [
+      ...formik.values.images,
+      imageUrl,
+    ]);
+  }
+
+  setUploadImage(false);
+};
 
   const handleRemoveImage = () => {
     console.log("handle remove image");
@@ -165,9 +208,9 @@ const childCategory = (categoryList = [], parentCategoryId) => {
             <TextField
               fullWidth
               id="selling_Price"
-              name="mrpPrice"
-              label="MRP Price"
-              value={formik.values.mrpPrice}
+              name="sellingPrice"
+              label="selling Price"
+              value={formik.values.sellingPrice}
               onChange={formik.handleChange}
               required
             />

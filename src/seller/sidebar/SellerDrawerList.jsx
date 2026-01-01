@@ -14,6 +14,9 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import AccountBox from "@mui/icons-material/AccountBox";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Divider } from "@mui/material";
+import { useAppDispatch } from "../../Redux Toolkit/store";
+import { performLogout } from "../../Redux Toolkit/features/Auth/AuthSlice";
+
 
 const menu = [
   {
@@ -72,8 +75,10 @@ const menu2 = [
 const SellerDrawerList = ({ toggleDrawer }) => {
   const location = useLocation();
   const navigate = useNavigate();
+ const dispatch= useAppDispatch();
 
   const handleLogout = () => {
+    dispatch(performLogout())
     console.log("handle Logout");
   };
 

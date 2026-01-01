@@ -22,9 +22,13 @@ const BecomeSeller = () => {
           </Button>
         </div>
       </section>
-      <section  className=" hidden md:col-span-1 md:flex  lg:col-span-2 ">
+      <section className=" hidden md:col-span-1 md:flex  lg:col-span-2 ">
         <div className="lg:w-[70%] px-5 space-y-10">
- <img className="w-[100%] h-[100%]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQcFVCdwFyH1f2noKBUvPrkf2znctY9JFQvg7nj4W3LhR-FV34ej_9P4OiaTNNrO38XMY&usqp=CAU" alt="" />
+          <img
+            className="w-[100%] h-[100%]"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQcFVCdwFyH1f2noKBUvPrkf2znctY9JFQvg7nj4W3LhR-FV34ej_9P4OiaTNNrO38XMY&usqp=CAU"
+            alt=""
+          />
         </div>
       </section>
     </div>
