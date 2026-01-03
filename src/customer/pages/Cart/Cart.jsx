@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CartItemaCard from "./CartItemaCard";
 import LocalOffer from "@mui/icons-material/LocalOffer";
 import { Button, TextField } from "@mui/material";
 import PricingCard from "./PricingCard";
 import Favorite from "@mui/icons-material/Favorite";
+import { useAppDispatch, useAppSelector } from "../../../Redux Toolkit/store";
+import { fetchCart } from "../../../Redux Toolkit/features/customer/cartSlice";
+import { Navigate, useNavigate } from "react-router";
+
 
 function Cart() {
+  const dispatch=useAppDispatch()
+    const carttState = useAppSelector((store) => store.cart);
+    const cart = carttState.cart;
+    const navigate=useNavigate()
+
+  useEffect(
+    ()=>{
+dispatch(fetchCart(localStorage.getItem("jwt")))
+    },[]
+  )
   return (
     <div className="pt-10 px-5 sm:px-10 md:px-60 min-h-screen">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      {cart?.cartItems.length>0 ?<div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div className="lg:col-span-2 space-y-3">
-          {[1, 1, 1, 1, 1].map((item) => (
-            <CartItemaCard />
+          {cart?.cartItems.map((item) => (
+            <CartItemaCard key={item._id} item={item}/>
           ))}
         </div>
 
@@ -31,7 +45,7 @@ function Cart() {
           <section className="border border-gray-300 rounded-md">
             <PricingCard />
             <div className="p-5">
-              <Button fullWidth variant="contained" sx={{ py: "11px" }}>
+              <Button onClick={()=>navigate("/checkout/address")} fullWidth variant="contained" sx={{ py: "11px" }}>
                 {" "}
                 BUY NOW
               </Button>
@@ -42,7 +56,7 @@ function Cart() {
             <Favorite color="primary" />
           </div>
         </div>
-      </div>
+      </div>:<><h1 className="text-2xl text-center font-semibold"> Cart is empty</h1></>}
     </div>
   );
 }

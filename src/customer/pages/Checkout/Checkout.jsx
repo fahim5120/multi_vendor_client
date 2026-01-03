@@ -44,6 +44,9 @@ const Checkout = () => {
   setPaymentGateway(e.target.value);
 };
 
+
+
+
   return (
     <Box className="pt-10 px-5 sm:px-10 md:px-44 lg:px-60 min-h-screen z-0">
       <Box className="space-y-5 lg:space-y-0 lg:grid-cols-3 lg:gap-9">
@@ -112,7 +115,7 @@ const Checkout = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <AddressForm />
+          <AddressForm  paymentGateway={paymentGateway}/>
         </Box>
       </Modal>
     </Box>

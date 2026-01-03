@@ -50,7 +50,7 @@ const CategorySheet = ({ selectedCategory, toggleDrawer, setShowSheet }) => {
               )?.map((item) => (
                 <div key={item.name}>
                   <li
-                    onClick={() => navigate(`/products/${item.name}`)}
+                    onClick={() =>navigate(`/products/${item.categoryId}`)}
                     className="cursor-pointer"
                   >
                     {item.name} - 1

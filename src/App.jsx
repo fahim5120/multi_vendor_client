@@ -19,6 +19,8 @@ import { useAppDispatch, useAppSelector } from "./Redux Toolkit/store";
 import { useEffect } from "react";
 import { fetchUserProfile } from "./Redux Toolkit/features/customer/userSlice";
 import { fetchSellerProfile } from "./Redux Toolkit/features/seller/sellerSlice";
+import { createHomeCategories } from "./Redux Toolkit/features/customer/HomeCategorySlice";
+import { homeCategories } from "./data/homeCategories";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -31,6 +33,14 @@ function App() {
       dispatch(fetchSellerProfile(jwt))
     }
   }, [auth.jwt, auth.role]);
+
+
+useEffect(()=>{
+dispatch(createHomeCategories(homeCategories))
+
+},[dispatch])
+
+
   return (   
     <div>
       <ThemeProvider theme={customeTheme}>

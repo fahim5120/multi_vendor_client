@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
 
 const ElectronicCategoryCard = ({ item }) => {
+ 
+  
   const navigate=useNavigate();
   return (
     <div onClick={() => navigate(`products/${item.categoryId}`)} className="flex w-20 flex-col items-center gap-3 text-center cursor-pointer hover:scale-105 transition-transform">

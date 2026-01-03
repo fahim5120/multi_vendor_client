@@ -1,31 +1,40 @@
 import React from 'react'
+import { useAppSelector } from '../../../../Redux Toolkit/store'
 
 const Grid = () => {
+     const category=useAppSelector(store=>store.homeCategory.homeCategories?.grid)
+
+
+       if (!Array.isArray(category) || category.length < 6) {
+    return null; // or loading UI
+  }
+  console.log("grid" ,category);
+  
     return (
         <div className='grid gap-4 grid-rows-12 grid-cols-12 lg:h-[600px] px-5 lg:px-20'>
 
             <div className='col-span-3 row-span-12 text-white rounded-md'>
-                <img className="object-cover h-full w-full rounded-md" src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSeJPd5pE6SUPYguDl3djtVfjfhzUg6CHoLDKwUsMPzIKzoo8l9EhYmvXTiRzZkOLNt0kR3DGQqsmonXAWCY5ADbgNoVqpFPLkUi8tkRkDt4xZQcyUvt9vY" alt="" />
+                <img className="object-cover h-full w-full rounded-md" src={category[0].image} alt="" />
             </div>
 
             <div className='col-span-2 row-span-6 text-white rounded-md'>
-                <img className="object-cover h-full w-full rounded-md" src="https://www.shipbob.com/wp-content/uploads/2022/06/PRODUCT-RANGE.jpg" alt="" />
+                <img className="object-cover h-full w-full rounded-md" src={category[5].image} alt="" />
             </div>
 
             <div className='col-span-4 row-span-6 text-white rounded-md'>
-                <img className="object-cover h-full w-full rounded-md" src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSeJPd5pE6SUPYguDl3djtVfjfhzUg6CHoLDKwUsMPzIKzoo8l9EhYmvXTiRzZkOLNt0kR3DGQqsmonXAWCY5ADbgNoVqpFPLkUi8tkRkDt4xZQcyUvt9vY" alt="" />
+                <img className="object-cover h-full w-full rounded-md" src={category[6].image} alt="" />
             </div>
 
             <div className='col-span-3 row-span-12 text-white rounded-md'>
-                <img className="object-cover h-full w-full rounded-md" src="https://media-api.xogrp.com/images/b6e57689-0c06-4529-b6aa-f955fa314907?auto=format&fit=max&w=1200&q=70" alt="" />
+                <img className="object-cover h-full w-full rounded-md" src={category[2].image} alt="" />
             </div>
 
             <div className='col-span-4 row-span-6 text-white rounded-md'>
-                <img className="object-cover h-full w-full rounded-md" src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSeJPd5pE6SUPYguDl3djtVfjfhzUg6CHoLDKwUsMPzIKzoo8l9EhYmvXTiRzZkOLNt0kR3DGQqsmonXAWCY5ADbgNoVqpFPLkUi8tkRkDt4xZQcyUvt9vY" alt="" />
+                <img className="object-cover h-full w-full rounded-md" src={category[4].image} alt="" />
             </div>
 
             <div className='col-span-2 row-span-6 text-white rounded-md'>
-                <img className="object-cover h-full w-full rounded-md" src="https://www.dmodot.com/cdn/shop/files/IMG_5803.jpg?v=1722405094" alt="" />
+                <img className="object-cover h-full w-full rounded-md" src={category[6].image} alt="" />
             </div>
 
         </div>

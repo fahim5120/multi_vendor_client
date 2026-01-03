@@ -39,6 +39,7 @@ const HomeCategorySlice = createSlice({
     loading: false,
     error: null,
   },
+  
   reducers: {},
   extraReducers: (builder) => {
     builder

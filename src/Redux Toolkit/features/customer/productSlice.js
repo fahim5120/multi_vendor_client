@@ -11,8 +11,8 @@ const initialState = {
   loading: false,
   error: "",
   searchProduct: [],
-//   paginatedProducts: null,
-//   totalPages: 1,
+  totalElements: 0,
+  totalPages: 0,
 };
 
 export const fetchProductById = createAsyncThunk(
@@ -81,8 +81,9 @@ const productSlice = createSlice({
       })
       builder.addCase(getAllProducts.fulfilled, (state, action) => {
         // state.paginatedProducts = action.payload;
-        state.products = action.payload
-        // state.totalPages = action.payload?.totalPages || 1;
+        state.products = action.payload.content
+        state.totalElements = action.payload.totalElements 
+        state.totalPages= action.payload.totalPages 
         state.loading = false;
    
       })
@@ -126,3 +127,5 @@ const productSlice = createSlice({
 });
 
 export default productSlice.reducer;
+
+

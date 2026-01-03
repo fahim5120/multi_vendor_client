@@ -1,15 +1,42 @@
 import { Box, Button, Divider } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import OrderStepper from "./OrderStepper";
 import Payment from "@mui/icons-material/Payment";
+import { useAppDispatch, useAppSelector } from "../../../Redux Toolkit/store";
+import {
+  fetchOrderById,
+  fetchOrderItemById,
+} from "../../../Redux Toolkit/features/customer/orderSlice";
+import { useParams } from "react-router";
 
 const OrderDetails = () => {
+  const dispatch = useAppDispatch();
+  const { orderItemId, orderId } = useParams();
+  const { orderItem, currentOrder } = useAppSelector((store) => store.order);
+
+  console.log("currentOrder 👉", currentOrder);
+
+  useEffect(() => {
+    dispatch(
+      fetchOrderItemById({
+        jwt: localStorage.getItem("jwt"),
+        orderItemId,
+      })
+    );
+
+    dispatch(
+      fetchOrderById({
+        jwt: localStorage.getItem("jwt"),
+        orderId: orderId,
+      })
+    );
+  }, [orderItemId]);
   return (
     <Box className="space-y-5">
       <section className="flex flex-col gap-5 justify-center items-center">
         <img
           className="w-[100px]"
-          src="https://m.media-amazon.com/images/I/71nUIzvu5VL._AC_SY445_.jpg"
+          src={orderItem?.product?.images[0]}
           alt=""
         />
 
@@ -17,7 +44,7 @@ const OrderDetails = () => {
           <h1 className="font-semibold text-base">Buyza</h1>
 
           <p className="text-gray-700">
-            Turquoise Blue Stonework Satin Designer Saree
+         { orderItem?.product?.title}
           </p>
 
           <p className="text-gray-600">
@@ -34,11 +61,17 @@ const OrderDetails = () => {
         <h1 className="font-bold pb-3">Delivery Address</h1>
         <div className="text-sm space-y-2">
           <div className="flex gap-5 font-medium items-center">
-            <p>Rafeeq</p>
+            <p>{currentOrder?.shippingAddress?.name}</p>
             <Divider flexItem orientation="vertical" />
-            <p>8136905120</p>
+            <p>{currentOrder?.shippingAddress?.mobile}</p>
           </div>
-          <p>Thazhakkatt, Kottakkal, Malappuram - 676503</p>
+          <p>
+            {currentOrder?.shippingAddress?.address},
+            {currentOrder?.shippingAddress?.locality},{" "}
+            {currentOrder?.shippingAddress?.city},
+            {currentOrder?.shippingAddress?.state},{" "}
+            {currentOrder?.shippingAddress?.pincode}
+          </p>
         </div>
       </section>
 
@@ -48,10 +81,10 @@ const OrderDetails = () => {
             <p className="font-bold">Total Item Price</p>
             <p>
               You saved{" "}
-              <span className="text-green-400">₹7500.00 on this item</span>
+              <span className="text-green-400">₹  {orderItem?.product?.mrpPrice-orderItem?.product?.sellingPrice}  on this item</span>
             </p>
           </div>
-          <p>₹ 12495.00</p>
+          <p>₹ {orderItem?.product?.sellingPrice} </p>
         </div>
         <div className="px-5 ">
           <div className="bg-teal-50 px-5 py-2 text-xs font-medium flex items-center gap-3">

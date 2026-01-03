@@ -3,11 +3,11 @@ import React from "react";
 import ElectricBolt from "@mui/icons-material/ElectricBolt";
 import { useNavigate } from "react-router";
 
-const OrderItemcard = () => {
+const OrderItemcard = ({ orderItem, order }) => {
   const navigate = useNavigate();
   return (
     <div
-      onClick={() => navigate("/account/orders/1/item/1")}
+      onClick={() => navigate(`/account/orders/${order._id}/item/${orderItem._id}`)}
       className="text-sm bg-white p-5 space-y-4 border border-gray-200 rounded-md cursor-pointer"
     >
       <div className="flex items-center gap-3">
@@ -17,21 +17,27 @@ const OrderItemcard = () => {
           </Avatar>
         </div>
         <div>
-          <h1 className="font-bold text-teal-600">PENDING</h1>
-          <p>Arriving by 08/12/2026</p>
+          <h1 className="font-bold text-teal-600">{order.orderStatus}</h1>
+          <p>
+            {" "}
+            Arriving{" "}
+            {order?.deliverDate
+              ? new Date(order.deliverDate).toLocaleDateString()
+              : "Soon"}
+          </p>
         </div>
       </div>
       <div className="p-5 bg-teal-50 flex gap-3">
         <div>
           <img
             className="w-[70px]"
-            src="https://m.media-amazon.com/images/I/81jo+i4pLfL._AC_SY445_.jpg"
+            src={orderItem.product?.images?.[0]}
             alt=""
           />
         </div>
         <div className="w-full space-y-2">
           <h1 className="font-bold">Buyza</h1>
-          <p>Turquoise Blue Stonework Satin Designer Saree</p>
+          <p>{orderItem.product?.title}</p>
 
           <p>
             <strong>Size :</strong> FREE

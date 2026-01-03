@@ -64,12 +64,14 @@ const electronics=[
 
 
 import ElectronicCategoryCard from "./ElectronicCategoryCard";
+import { useAppSelector } from '../../../../Redux Toolkit/store';
 
 const ElectronicCategory = () => {
+  const homeCategories=useAppSelector(store=>store.homeCategory.homeCategories)
   return (
     <div className="flex flex-wrap justify-between py-5 lg:px-20 border-b border-gray-300">
-      {electronics.map((item, index) => (
-        <ElectronicCategoryCard item={item} key={index} />
+      {homeCategories?.electricCategories?.slice(0,7)?.map((item) => (
+        <ElectronicCategoryCard item={item} key={item.name} />
       ))}
     </div>
   );

@@ -23,7 +23,8 @@ export const fetchCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log("error", error);
-      return rejectWithValue(error);
+     return rejectWithValue(error.response?.data?.message || "Something went wrong");
+
     }
   }
 );
@@ -42,7 +43,8 @@ export const addItemToCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log("error", error);
-      return rejectWithValue(error);
+     return rejectWithValue(error.response?.data?.message || "Something went wrong");
+
     }
   }
 );
@@ -51,11 +53,11 @@ export const addItemToCart = createAsyncThunk(
 // Update cart item
 export const updateCartItem = createAsyncThunk(
   "cart/updateCartItem",
-  async ({ jwt, cartItemId, cartItem }, { rejectWithValue }) => {
+  async ({ jwt, cartItemId, quantity }, { rejectWithValue }) => {
     try {
       const response = await api.put(
         `${API_URL}/item/${cartItemId}`,
-        cartItem,
+        {quantity,},
         {
           headers: { Authorization: `Bearer ${jwt}` },
         }
@@ -63,7 +65,8 @@ export const updateCartItem = createAsyncThunk(
          console.log("update cart item", response.data);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error);
+     return rejectWithValue(error.response?.data?.message || "Something went wrong");
+
     }
   }
 );
@@ -79,7 +82,7 @@ export const deleteCartItem = createAsyncThunk(
         console.log("delete item from cart", response.data);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.response?.data?.message || "Delete failed");
     }
   }
 );
@@ -98,7 +101,7 @@ const cartSlice = createSlice({
     resetCartState: (state) => {
       state.cart = null;
       state.loading = false;
-      state.error = null;
+      state.error = "";
     },
   },
   extraReducers: (builder) => {
@@ -114,7 +117,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || "";
       })
 
 
@@ -133,7 +136,7 @@ const cartSlice = createSlice({
       })
       .addCase(addItemToCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+     state.error = action.payload || "";
       })
 
 
@@ -169,7 +172,7 @@ const cartSlice = createSlice({
       })
       .addCase(updateCartItem.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || "";
       })
 
 
@@ -180,28 +183,38 @@ const cartSlice = createSlice({
         state.loading = true;
         // state.error = null;
       })
-      .addCase(deleteCartItem.fulfilled, (state, action) => {
-        state.loading = false;
-        if (state.cart) {
-          state.cart.cartItems = state.cart.cartItems.filter(
-            (item) => item._id !== action.payload._id
-          );
+      // .addCase(deleteCartItem.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   if (state.cart) {
+      //     state.cart.cartItems = state.cart.cartItems.filter(
+      //       (item) => item._id !== action.payload._id
+      //     );
 
-        //   const mrpPrice = sumCartItemMrpPrice(
-        //     state.cart.cartItems || []
-        //   );
-        //   const sellingPrice = sumCartItemSellingPrice(
-        //     state.cart.cartItems || []
-        //   );
+      //   //   const mrpPrice = sumCartItemMrpPrice(
+      //   //     state.cart.cartItems || []
+      //   //   );
+      //   //   const sellingPrice = sumCartItemSellingPrice(
+      //   //     state.cart.cartItems || []
+      //   //   );
 
-        //   state.cart.totalMrpPrice = mrpPrice;
-        //   state.cart.totalSellingPrice = sellingPrice;
-        }
+      //   //   state.cart.totalMrpPrice = mrpPrice;
+      //   //   state.cart.totalSellingPrice = sellingPrice;
+      //   }
        
-      })
+      // })
+
+      .addCase(deleteCartItem.fulfilled, (state, action) => {
+  state.loading = false;
+  if (state.cart) {
+    state.cart.cartItems = state.cart.cartItems.filter(
+      (item) => item._id !== action.meta.arg.cartItemId
+    );
+  }
+})
+
       .addCase(deleteCartItem.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+       state.error = action.payload || "";
       })
 
 
