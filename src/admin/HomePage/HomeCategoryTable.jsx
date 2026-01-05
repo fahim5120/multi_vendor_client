@@ -42,9 +42,9 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export default function HomeCategoryTable({image}) {
+export default function HomeCategoryTable({categories}) {
 
-    const homeCategories=useAppSelector(store=>store.homeCategory.homeCategories)
+   
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -58,7 +58,7 @@ export default function HomeCategoryTable({image}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {homeCategories.electricCategories.map((item,index) => (
+          {categories?.map((item,index) => (
             <StyledTableRow key={item._id}>
               <StyledTableCell component="th" scope="row">
                 {index}
