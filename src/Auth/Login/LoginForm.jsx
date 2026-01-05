@@ -13,11 +13,15 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const auth = useAppSelector((store) =>store.auth);
   
-  useEffect(() => {
-  if (auth.jwt) {
-    navigate("/");
+useEffect(() => {
+  if (auth.jwt && auth.role) {
+    if (auth.role === "ROLE_ADMIN") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
   }
-}, [auth.jwt]);
+}, [auth.jwt, auth.role, navigate]);
 
 
   const formik = useFormik({

@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { useAppSelector } from "../../Redux Toolkit/store";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,6 +43,8 @@ const rows = [
 ];
 
 export default function HomeCategoryTable({image}) {
+
+    const homeCategories=useAppSelector(store=>store.homeCategory.homeCategories)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -55,18 +58,18 @@ export default function HomeCategoryTable({image}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,index) => (
-            <StyledTableRow key={row.name}>
+          {homeCategories.electricCategories.map((item,index) => (
+            <StyledTableRow key={item._id}>
               <StyledTableCell component="th" scope="row">
                 {index}
               </StyledTableCell>
-              <StyledTableCell >{row.calories}</StyledTableCell>
+              <StyledTableCell >{item._id}</StyledTableCell>
               <StyledTableCell align="right">  <img
                     className="w-20 rounded-md"
-                    src={image}
+                    src={item.image}
                     alt=""
                   /></StyledTableCell>
-              <StyledTableCell align="right">₹12495</StyledTableCell>
+              <StyledTableCell align="right">{item.categoryId}</StyledTableCell>
                <StyledTableCell align="right">
                   <IconButton >
                     <EditIcon color="primary" />

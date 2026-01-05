@@ -7,9 +7,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Badge, Button, Chip, Menu, MenuItem } from "@mui/material";
-import React from "react";
-
-
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../Redux Toolkit/store";
+import {
+  fetchSellerOrders,
+  updateOrderStatus,
+} from "../../Redux Toolkit/features/seller/sellerOrderSlice";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -43,18 +46,21 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-
 const orderStatus = [
-  { color: '#FFA500', label: 'PENDING' }, 
-  { color: '#F5BCBA', label: 'PLACED' }, 
-  { color: '#F5BCBA', label: 'CONFIRMED' },
-  { color: '#1E90FF', label: 'SHIPPED' }, 
-   { color: '#32CD32', label: 'DELIVERED' }, 
-   { color: '#FF0000', label: 'CANCELLED' },
-
+  { color: "#FFA500", label: "PENDING" },
+  { color: "#F5BCBA", label: "PLACED" },
+  { color: "#F5BCBA", label: "CONFIRMED" },
+  { color: "#1E90FF", label: "SHIPPED" },
+  { color: "#32CD32", label: "DELIVERED" },
+  { color: "#FF0000", label: "CANCELLED" },
 ];
 export default function OrderTable() {
-      const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useAppDispatch();
+  const { orders, loading, error } = useAppSelector(
+    (store) => store.sellerOrder
+  );
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,11 +69,23 @@ export default function OrderTable() {
     setAnchorEl(null);
   };
 
-  const handleUpdateOrder=(id,status)=>{
-    console.log("updated order");
-    handleClose()
-    
-  }
+  const handleUpdateOrder = (id, status) => {
+    console.log("update order-------", id, status);
+    const data = {
+      orderId: id,
+      orderStatus: status,
+      jwt: localStorage.getItem("jwt"),
+    };
+    console.log("update order-------  data", data);
+
+    dispatch(updateOrderStatus(data));
+    handleClose();
+  };
+
+  useEffect(() => {
+    dispatch(fetchSellerOrders(localStorage.getItem("jwt")));
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -81,38 +99,43 @@ export default function OrderTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {orders.map((order) => (
+            <StyledTableRow key={order._id}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {order._id}
               </StyledTableCell>
               <StyledTableCell>
                 <div className="flex gap-1 flex-wrap">
-                  {[1].map((item, index) => (
+                  {order.orderItems?.map((item, index) => (
                     <div key={index} className="flex gap-5 ">
                       <img
                         className="w-20 rounded-md"
-                        src="https://m.media-amazon.com/images/I/81jo+i4pLfL._AC_SY445_.jpg"
+                        src={item.product.images[0]}
                         alt="product-img"
                       />
                       <div className="flex flex-col justify-between py-2">
-                        <h1>Title: Men Shirt</h1>
-                        <h1>Price: Rs.1999</h1>
-                        <h1>Color: Blue</h1>
-                        <h1>Size: m</h1>
+                        <h1>Title: {item.product.title}</h1>
+                        <h1>Price: {item.sellingPrice}</h1>
+                        <h1>Color: {item.product.color}</h1>
+                        <h1>Size: {item.size}</h1>
                       </div>
                     </div>
                   ))}
                 </div>
               </StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
               <StyledTableCell align="right">
-                <Chip label="Delivered" />
+                <p>
+                  {order?.shippingAddress?.address},
+                  {order?.shippingAddress?.locality},{" "}
+                  {order?.shippingAddress?.city},{order?.shippingAddress?.state}
+                  , {order?.shippingAddress?.pincode}
+                </p>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <Button 
-                color="primary" size="small"
-                onClick={handleClick}>
+                <Chip label={order.orderStatus} />
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <Button color="primary" size="small" onClick={handleClick}>
                   Status
                 </Button>
                 <Menu
@@ -126,10 +149,13 @@ export default function OrderTable() {
                     },
                   }}
                 >
-                    {orderStatus.map((status)=>
-                     <MenuItem onClick={()=>handleUpdateOrder(1,status.label)}>{status.label}</MenuItem>)}
-                 
-                 
+                  {orderStatus.map((status) => (
+                    <MenuItem
+                      onClick={() => handleUpdateOrder(order._id, status.label)}
+                    >
+                      {status.label}
+                    </MenuItem>
+                  ))}
                 </Menu>
               </StyledTableCell>
             </StyledTableRow>
@@ -139,8 +165,3 @@ export default function OrderTable() {
     </TableContainer>
   );
 }
-
-
-
-
-

@@ -1,13 +1,25 @@
 import { Divider } from "@mui/material";
-import React from "react";
-import { useAppSelector } from "../../../Redux Toolkit/store";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../Redux Toolkit/store";
 import { sumCartItemMrpPrice, sumCartItemSellingPrice } from "../../../util/sumCartItemPrice";
+import { fetchCart } from "../../../Redux Toolkit/features/customer/cartSlice";
 
 const PricingCard = () => {
     const carttState = useAppSelector((store) => store.cart);
       const cart = carttState.cart;
+      const dispatch=useAppDispatch()
+
+
+
+
+        useEffect(
+          ()=>{
+      dispatch(fetchCart(localStorage.getItem("jwt")))
+          },[]
+        )
   return (
-    <div className="">
+    <>
+    {cart ?( <div className="">
       <div className="space-y-3 p-5">
         <div className="flex justify-between items-center ">
           <span>Subtotal</span>
@@ -36,7 +48,8 @@ const PricingCard = () => {
           <span>Total</span>
           <span>₹{sumCartItemSellingPrice(cart?.cartItems)+79}</span>
         </div>
-    </div>
+    </div>):("")}
+    </>
   );
 };
 

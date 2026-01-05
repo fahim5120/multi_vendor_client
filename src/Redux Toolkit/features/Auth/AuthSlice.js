@@ -201,6 +201,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { resetUserState } from "../customer/userSlice";
 import { resetSellerAuthState, verifyLoginOtp } from "../seller/sellerAuthentication";
 import { api } from "../../../Config/Api";
+import { Navigate } from "react-router";
 
 const API_URL = "/api/auth";
 
@@ -293,7 +294,12 @@ export const signin = createAsyncThunk(
   async ({ email, otp }, { rejectWithValue }) => {
     try {
       const res = await api.post(`${API_URL}/signin`, { email, otp });
+      console.log("response" ,res.data);
+      
       localStorage.setItem("jwt", res.data.jwt);
+      // if(res.data.role==="ROLE_ADMIN"){
+      //   Navigate("/admin")
+      // }else Navigate("/")
       return res.data;
     } catch (error) {
       return rejectWithValue(
