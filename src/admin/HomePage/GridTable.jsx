@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import { Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import HomeCategoryTable from "./HomeCategoryTable";
+import { useAppSelector } from "../../Redux Toolkit/store";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -43,7 +44,8 @@ const rows = [
 ];
 const image="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSeJPd5pE6SUPYguDl3djtVfjfhzUg6CHoLDKwUsMPzIKzoo8l9EhYmvXTiRzZkOLNt0kR3DGQqsmonXAWCY5ADbgNoVqpFPLkUi8tkRkDt4xZQcyUvt9vY"
 export default function GridTable() {
+   const homeCategories=useAppSelector(store=>store.homeCategory.homeCategories)
   return (
-    <HomeCategoryTable image={image}/>
+    <HomeCategoryTable categories={homeCategories?.grid}/>
   );
 }

@@ -15,7 +15,10 @@ import {
   Select,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../Redux Toolkit/store";
+import { getAllDeals } from "../../Redux Toolkit/features/admin/dealSlice";
+import { fetchSellers } from "../../Redux Toolkit/features/seller/sellerSlice";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,18 +39,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
 
 const accountStatuses = [
   {
@@ -84,12 +75,21 @@ const accountStatuses = [
 ];
 
 export default function SellerTable() {
+  const dispatch = useAppDispatch();
+  const seller = useAppSelector((store) => store.seller);
 
-      const [status, setstatus] = useState('');
+  const [status, setstatus] = useState(accountStatuses[0].status);
 
   const handleChange = (event) => {
     setstatus(event.target.value);
   };
+
+  useEffect(() => {
+    dispatch(fetchSellers(status));
+  }, [status]);
+
+  console.log(seller);
+
   return (
     <>
       <div className="pb-5 w-60">
@@ -101,9 +101,11 @@ export default function SellerTable() {
             value={status}
             label="status"
             onChange={handleChange}
-          > {accountStatuses.map((status) =>
-                            <MenuItem value={status.status}>{status.status}</MenuItem>)}
-      
+          >
+            {" "}
+            {accountStatuses.map((status) => (
+              <MenuItem value={status.status}>{status.status}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </div>
@@ -121,20 +123,23 @@ export default function SellerTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+            {seller?.sellers.map((item) => (
+              <StyledTableRow key={item._id}>
                 <StyledTableCell component="th" scope="row">
-                  <div className="">
-                    <p> December 10, </p>
-                    <p>2025 10:34:41 AM</p>
-                  </div>
+                  {item.sellerName}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                <StyledTableCell align="right">₹12495</StyledTableCell>
-                <StyledTableCell align="right">₹12495</StyledTableCell>
-                <StyledTableCell align="right">₹12495</StyledTableCell>
-                <StyledTableCell align="right">₹12495</StyledTableCell>
+                <StyledTableCell align="right">{item.email}</StyledTableCell>
+                <StyledTableCell align="right">{item.mobile}</StyledTableCell>
+                <StyledTableCell align="right">{item.GSTIN}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {item.businessDetails.businessName}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {item.accountStatus}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  <Button>update</Button>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
