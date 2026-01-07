@@ -12,6 +12,9 @@ const LoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const auth = useAppSelector((store) =>store.auth);
+
+
+
   
 useEffect(() => {
   if (auth.jwt && auth.role) {
@@ -25,6 +28,7 @@ useEffect(() => {
 
 
   const formik = useFormik({
+
     initialValues: {
       email: "",
       otp: "",
@@ -34,9 +38,14 @@ useEffect(() => {
     //     //  dispatch(signin(values))
     //   console.log(values);
     // },
+
     onSubmit: (values) => {
+      console.log(values);
+      
   dispatch(signin(values));   
 }
+
+
 
   });
 

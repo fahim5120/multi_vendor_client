@@ -9,6 +9,9 @@ import Paper from "@mui/material/Paper";
 import { Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useAppDispatch, useAppSelector } from "../../Redux Toolkit/store";
+import { useEffect } from "react";
+import { deleteDeal, getAllDeals } from "../../Redux Toolkit/features/admin/dealSlice";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -43,6 +46,17 @@ const rows = [
 ];
 
 export default function DealTable() {
+  const dispatch=useAppDispatch()
+  const deal=useAppSelector(store=>store.deal)
+  useEffect(
+    ()=>{
+dispatch(getAllDeals(localStorage.getItem("jwt")))
+    },[]
+  )
+
+  const handleDeleteDeal=(id)=>{
+dispatch(deleteDeal(id))
+  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -57,23 +71,23 @@ export default function DealTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
-            <StyledTableRow key={row.name}>
+          {deal.deals.map((item, index) => (
+            <StyledTableRow key={item._id}>
               <StyledTableCell component="th" scope="row">
-                {index}
+                {index+1}
               </StyledTableCell>
 
               <StyledTableCell align="right">
-                {" "}
+                {item.category.image}
                 <img
                   className="w-20 rounded-md"
-                  src="https://m.media-amazon.com/images/I/51Jd5JpSSuL._AC_UY1000_.jpg"
+                  src={""}
                   alt=""
                 />
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
+              <StyledTableCell align="right">{item.category.name}</StyledTableCell>
 
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
+              <StyledTableCell align="right">{item.discount}%</StyledTableCell>
 
               <StyledTableCell align="right">
                 <IconButton>
@@ -82,7 +96,7 @@ export default function DealTable() {
               </StyledTableCell>
 
               <StyledTableCell align="right">
-                <IconButton>
+                <IconButton onClick={()=>handleDeleteDeal(item._id)}>
                   <DeleteIcon color="error" />
                 </IconButton>
               </StyledTableCell>

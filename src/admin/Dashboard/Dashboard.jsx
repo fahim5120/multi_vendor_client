@@ -7,9 +7,7 @@ import { fetchHomeCategory } from "../../Redux Toolkit/features/admin/adminSlice
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchHomeCategory());
-  }, []);
+ 
   return (
     <div className="min-h-screen">
       <Navbar DrawerList={AdminDrawerList} />

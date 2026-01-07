@@ -121,7 +121,7 @@ const dealSlice = createSlice({
       })
       .addCase(createDeal.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        // state.error = action.payload;
       })
 
       // Delete deal

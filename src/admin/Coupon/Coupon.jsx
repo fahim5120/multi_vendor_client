@@ -15,9 +15,11 @@ import {
   Select,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import { store, useAppDispatch, useAppSelector } from "../../Redux Toolkit/store";
+import { fetchAllCoupons } from "../../Redux Toolkit/features/admin/CouponSlice";
 
 
 
@@ -89,6 +91,16 @@ const accountStatuses = [
 ];
 
 export default function Coupon() {
+  const dispatch=useAppDispatch()
+  const coupon=useAppSelector(store=>store.coupon)
+  useEffect(
+    ()=>{
+dispatch(fetchAllCoupons(
+  localStorage.getItem("jwt")
+))
+    },[]
+  )
+
   const [status, setstatus] = useState("");
 
   const handleChange = (event) => {
@@ -127,7 +139,7 @@ export default function Coupon() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {coupon.coupons?.map((row) => (
               <StyledTableRow key={row.name}>
                 <StyledTableCell component="th" scope="row">
                   <div className="">

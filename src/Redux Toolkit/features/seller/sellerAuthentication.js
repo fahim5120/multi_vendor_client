@@ -92,6 +92,25 @@ export const createSeller = createAsyncThunk(
 // );
 
 
+// export const verifyLoginOtp = createAsyncThunk(
+//   "sellers/verifyLoginOtp",
+//   async ({ email, otp }, { rejectWithValue }) => {
+//     try {
+//       const response = await api.post(
+//         "/sellers/verify/login-otp",
+//         { email, otp }
+//       );
+//       localStorage.setItem("jwt", response.data.jwt);
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(
+//         error?.response?.data?.message || "Failed to verify OTP"
+//       );
+//     }
+//   }
+// );
+
+
 export const verifyLoginOtp = createAsyncThunk(
   "sellers/verifyLoginOtp",
   async ({ email, otp }, { rejectWithValue }) => {
@@ -109,6 +128,7 @@ export const verifyLoginOtp = createAsyncThunk(
     }
   }
 );
+
 
 
 /* ======================
@@ -130,19 +150,63 @@ const sellerSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      .addCase(sendLoginOtp.fulfilled, (state) => {
-        state.otpSent = true;
-      })
+      // .addCase(sendLoginOtp.fulfilled, (state) => {
+      //   state.otpSent = true;
+      // })
 
-      .addCase(createSeller.fulfilled, (state, action) => {
-        state.jwt = action.payload.jwt;
-      })
+      // .addCase(createSeller.fulfilled, (state, action) => {
+      //   state.jwt = action.payload.jwt;
+      // })
 
-      .addCase(verifyLoginOtp.fulfilled, (state, action) => {
-        state.loading = false;
-        state.jwt = action.payload.jwt;
-        state.role = action.payload.role;
-      });
+      // .addCase(verifyLoginOtp.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   state.jwt = action.payload.jwt;
+      //   state.role = action.payload.role;
+      // });
+
+// 🔹 SEND OTP
+.addCase(sendLoginOtp.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+
+    .addCase(sendLoginOtp.fulfilled, (state) => {
+      state.loading = false;
+      state.otpSent = true;
+      state.error = null;
+    })
+
+    .addCase(sendLoginOtp.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
+
+    .addCase(verifyLoginOtp.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+
+    .addCase(verifyLoginOtp.fulfilled, (state, action) => {
+      state.loading = false;
+      state.jwt = action.payload.jwt;
+      state.role = action.payload.role;
+      state.error = null;
+    })
+
+    .addCase(verifyLoginOtp.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.jwt = null;
+    })
+
+
+
+// 🔹 CREATE SELLER (NO JWT HERE ❗)
+.addCase(createSeller.fulfilled, (state) => {
+  state.loading = false;
+})
+
+
 
     // Create seller
   },
