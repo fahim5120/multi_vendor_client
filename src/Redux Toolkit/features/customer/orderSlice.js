@@ -69,9 +69,9 @@ export const createOrder = createAsyncThunk(
 
       console.log("create order", response.data);
 
-      //   if (response.data?.payment_link_url) {
-      //     window.location.href = response.data.payment_link_url;
-      //   }
+        if (response.data?.payment_link_url) {
+          window.location.href = response.data.payment_link_url;
+        }
 
       return response.data;
     } catch (error) {
@@ -117,6 +117,19 @@ export const paymentSuccess = createAsyncThunk(
     }
   }
 );
+//mugalil ullath....
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Cancel order
 export const cancelOrder = createAsyncThunk(

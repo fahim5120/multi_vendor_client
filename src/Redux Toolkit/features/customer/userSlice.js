@@ -24,6 +24,32 @@ export const fetchUserProfile = createAsyncThunk(
   }
 );
 
+
+export const addUserAddress = createAsyncThunk(
+  "users/addUserAddress",
+  async ({ address, jwt }, { rejectWithValue }) => {
+    try {
+      const response = await api.put(
+        `${API_URL}/address`,
+        address,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+
+      console.log("address added", response.data);
+      return response.data; // updated user
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to add address"
+      );
+    }
+  }
+);
+
+
 const initialState = {
   user: null,
   loading: false,
@@ -52,6 +78,18 @@ const userSlice = createSlice({
       state.loading = false;
     });
     builder.addCase(fetchUserProfile.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
+    .addCase(addUserAddress.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(addUserAddress.fulfilled, (state, action) => {
+      state.loading = false;
+      // console.log("ADDRESS RESPONSE 👉", action.payload);
+      state.user = action.payload; // 🔥 updated addresses
+    })
+    .addCase(addUserAddress.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });

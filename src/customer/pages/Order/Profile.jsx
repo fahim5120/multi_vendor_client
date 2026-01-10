@@ -5,7 +5,9 @@ import OrderDetails from "./OrderDetails";
 import { Route, Routes, useNavigate } from "react-router";
 import UserDetails from "../Account/UserDetails";
 import { performLogout } from "../../../Redux Toolkit/features/Auth/AuthSlice";
-import { useAppDispatch } from "../../../Redux Toolkit/store";
+import { store, useAppDispatch, useAppSelector } from "../../../Redux Toolkit/store";
+import SavedCards from "./SavedCards";
+import Addresses from "./Addresses";
 
 const menu = [
   { name: "orders", path: "/account/orders" },
@@ -16,19 +18,21 @@ const menu = [
   { name: "Logout", path: "/" },
 ];
 const Profile = () => {
+
   const dispatch=useAppDispatch()
-  const navigate = useNavigate();
+  const {user}=useAppSelector(store=>store)
+  const navigate = useNavigate()
   const handleClick = (item) => {
     if(item.name==="Logout")handleLogout()
-    navigate(item.path);
-  };
+    navigate(item.path)
+  }
   const handleLogout=()=>{
    dispatch(performLogout())
   }
   return (
     <div className="px-5 lg:px-52 min-h-screen mt-10">
       <div>
-        <h1 className="text-xl font-bold pb-5">Rafeeq</h1>
+        <h1 className="text-xl font-bold pb-5"> {user.user?.fullName}</h1>
       </div>
       <Divider />
       <div className="grid grid-cols-1 lg:grid-cols-3 lg:min-h-[78vh]">
@@ -51,6 +55,8 @@ const Profile = () => {
               path="/orders/:orderId/item/:orderItemId"
               element={<OrderDetails />}
             />
+             <Route path='/saved-card' element={<SavedCards />} />
+              <Route path='/addresses' element={<Addresses />} />
           </Routes>
           {/* <Order/> */}
           <OrderDetails />

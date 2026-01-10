@@ -18,12 +18,12 @@ import { fetchProductById } from "../../../../Redux Toolkit/features/customer/pr
 import { useParams } from "react-router";
 import { addItemToCart } from "../../../../Redux Toolkit/features/customer/cartSlice";
 
-// const images = [
-//   "https://m.media-amazon.com/images/I/81jo+i4pLfL._AC_SY445_.jpg",
-//   "https://m.media-amazon.com/images/I/71nUIzvu5VL._AC_SY445_.jpg",
-//   "https://m.media-amazon.com/images/I/81FXELa76YL._AC_SY445_.jpg",
-//   "https://m.media-amazon.com/images/I/71mdK-QQTLL._AC_SY445_.jpg",
-// ];
+
+
+const paymentgatewayList=[
+  {},
+  {}
+]
 
 const ProductDeatails = () => {
   const [currentImage, setCurrentImage] = useState(0);

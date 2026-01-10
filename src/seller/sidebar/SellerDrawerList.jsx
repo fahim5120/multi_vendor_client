@@ -1,11 +1,155 @@
-import HomeIcon from "@mui/icons-material/Home";
+// import HomeIcon from "@mui/icons-material/Home";
+
+// import ListItemIcon from "@mui/material/ListItemIcon";
+// import ListItemText from "@mui/material/ListItemText";
+// import React from "react";
+// import { useLocation, useNavigate } from "react-router";
+// import DashboardIcon from "@mui/icons-material/Dashboard";
+
+// import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+// import InventoryIcon from "@mui/icons-material/Inventory";
+// import AddIcon from "@mui/icons-material/Add";
+// import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+// import ReceiptIcon from "@mui/icons-material/Receipt";
+// import AccountBox from "@mui/icons-material/AccountBox";
+// import LogoutIcon from "@mui/icons-material/Logout";
+// import { Divider } from "@mui/material";
+// import { useAppDispatch } from "../../Redux Toolkit/store";
+// import { performLogout } from "../../Redux Toolkit/features/Auth/AuthSlice";
+
+
+// const menu = [
+//   {
+//     name: "Dashboard",
+//     path: "/seller",
+//     icon: <DashboardIcon className="text-primary-color" />,
+//     activeIcon: <DashboardIcon className="text-white" />,
+//   },
+//   {
+//     name: "Orders",
+//     path: "/seller/orders",
+//     icon: <ShoppingBagIcon className="text-primary-color" />,
+//     activeIcon: <ShoppingBagIcon className="text-white" />,
+//   },
+//   {
+//     name: "Products",
+//     path: "/seller/products",
+//     icon: <InventoryIcon className="text-primary-color" />,
+//     activeIcon: <InventoryIcon className="text-white" />,
+//   },
+//   {
+//     name: "Add Product",
+//     path: "/seller/add-product",
+//     icon: <AddIcon className="text-primary-color" />,
+//     activeIcon: <AddIcon className="text-white" />,
+//   },
+//   {
+//     name: "Payment",
+//     path: "/seller/payment",
+//     icon: <AccountBalanceWalletIcon className="text-primary-color" />,
+//     activeIcon: <AccountBalanceWalletIcon className="text-white" />,
+//   },
+//   {
+//     name: "Transaction",
+//     path: "/seller/transaction",
+//     icon: <ReceiptIcon className="text-primary-color" />,
+//     activeIcon: <ReceiptIcon className="text-white" />,
+//   },
+// ];
+
+// const menu2 = [
+//   {
+//     name: "Account",
+//     path: "/seller/account",
+//     icon: <AccountBox className="text-primary-color" />,
+//     activeIcon: <AccountBox className="text-white" />,
+//   },
+//   {
+//     name: "Logout",
+//     path: "/",
+//     icon: <LogoutIcon className="text-primary-color" />,
+//     activeIcon: <LogoutIcon className="text-white" />,
+//   },
+// ];
+
+// const SellerDrawerList = ({ toggleDrawer }) => {
+//   const location = useLocation();
+//   const navigate = useNavigate();
+//  const dispatch= useAppDispatch();
+
+//   const handleLogout = () => {
+//     dispatch(performLogout())
+//     console.log("handle Logout");
+//   };
+
+//   const handleClick = (item) => {
+//     if (item.name === "Logout") {
+//       handleLogout();
+//     }
+//     navigate(item.path);
+//     //    if(toggleDrawer) toggleDrawer(false)
+//   };
+//   return (
+//     <div className="h-full">
+//       <div className="flex flex-col justify-between h-full w-[300px] border-r border-gray-300 py-5">
+//         <div className="space-y-2">
+//           {menu.map((item, index) => (
+//             <div
+//               onClick={() => handleClick(item)}
+//               key={item.path}
+//               className="pr-9 cursor-pointer"
+//             >
+//               <p
+//                 className={`${
+//                   location.pathname === item.path ? "bg-[teal] text-white" : ""
+//                 }  flex items-center px-5 py-3 rounded-r-full`}
+//               >
+//                 <ListItemIcon color="white">
+//                   {location.pathname === item.path
+//                     ? item.activeIcon
+//                     : item.icon}
+//                 </ListItemIcon>
+//                 <ListItemText primary={item.name} />
+//               </p>
+//             </div>
+//           ))}
+//         </div>
+//         <div className="space-y-2">
+//           <Divider />
+//           {menu2.map((item, index) => (
+//             <div
+//               onClick={() => handleClick(item)}
+//               key={item.path}
+//               className="pr-9 cursor-pointer"
+//             >
+//               <p
+//                 className={`${
+//                   location.pathname === item.path ? "bg-[teal] text-white" : ""
+//                 }  flex items-center px-5 py-3 rounded-r-full`}
+//               >
+//                 <ListItemIcon color="white">
+//                   {location.pathname === item.path
+//                     ? item.activeIcon
+//                     : item.icon}
+//                 </ListItemIcon>
+//                 <ListItemText primary={item.name} />
+//               </p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default SellerDrawerList;
+
 
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import React from "react";
 import { useLocation, useNavigate } from "react-router";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import AddIcon from "@mui/icons-material/Add";
@@ -16,7 +160,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Divider } from "@mui/material";
 import { useAppDispatch } from "../../Redux Toolkit/store";
 import { performLogout } from "../../Redux Toolkit/features/Auth/AuthSlice";
-
 
 const menu = [
   {
@@ -75,65 +218,69 @@ const menu2 = [
 const SellerDrawerList = ({ toggleDrawer }) => {
   const location = useLocation();
   const navigate = useNavigate();
- const dispatch= useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    dispatch(performLogout())
-    console.log("handle Logout");
+    dispatch(performLogout());
   };
 
   const handleClick = (item) => {
-    if (item.name === "Logout") {
-      handleLogout();
-    }
+    if (item.name === "Logout") handleLogout();
     navigate(item.path);
-    //    if(toggleDrawer) toggleDrawer(false)
   };
+
   return (
     <div className="h-full">
       <div className="flex flex-col justify-between h-full w-[300px] border-r border-gray-300 py-5">
+        {/* TOP MENU */}
         <div className="space-y-2">
-          {menu.map((item, index) => (
+          {menu.map((item) => (
             <div
-              onClick={() => handleClick(item)}
               key={item.path}
+              onClick={() => handleClick(item)}
               className="pr-9 cursor-pointer"
             >
-              <p
+              <div
                 className={`${
-                  location.pathname === item.path ? "bg-[teal] text-white" : ""
-                }  flex items-center px-5 py-3 rounded-r-full`}
+                  location.pathname === item.path
+                    ? "bg-[teal] text-white"
+                    : ""
+                } flex items-center px-5 py-3 rounded-r-full`}
               >
-                <ListItemIcon color="white">
+                <ListItemIcon sx={{ color: "inherit", minWidth: 40 }}>
                   {location.pathname === item.path
                     ? item.activeIcon
                     : item.icon}
                 </ListItemIcon>
                 <ListItemText primary={item.name} />
-              </p>
+              </div>
             </div>
           ))}
         </div>
+
+        {/* BOTTOM MENU */}
         <div className="space-y-2">
           <Divider />
-          {menu2.map((item, index) => (
+          {menu2.map((item) => (
             <div
-              onClick={() => handleClick(item)}
               key={item.path}
+              onClick={() => handleClick(item)}
               className="pr-9 cursor-pointer"
             >
-              <p
+              <div
                 className={`${
-                  location.pathname === item.path ? "bg-[teal] text-white" : ""
-                }  flex items-center px-5 py-3 rounded-r-full`}
+                  location.pathname === item.path
+                    ? "bg-[teal] text-white"
+                    : ""
+                } flex items-center px-5 py-3 rounded-r-full`}
               >
-                <ListItemIcon color="white">
+                <ListItemIcon sx={{ color: "inherit", minWidth: 40 }}>
                   {location.pathname === item.path
                     ? item.activeIcon
                     : item.icon}
                 </ListItemIcon>
                 <ListItemText primary={item.name} />
-              </p>
+              </div>
             </div>
           ))}
         </div>

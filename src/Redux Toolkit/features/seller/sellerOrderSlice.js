@@ -83,15 +83,27 @@ const sellerOrderSlice = createSlice({
         state.loading = true;
         // state.error = null;
       })
+      // .addCase(updateOrderStatus.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   const index = state.orders.findIndex(
+      //     (order) => order._id === action.payload._id
+      //   );
+        
+      //   state.orders[index] = action.payload;
+        
+      // })
       .addCase(updateOrderStatus.fulfilled, (state, action) => {
-        state.loading = false;
-        const index = state.orders.findIndex(
-          (order) => order._id === action.payload._id
-        );
-        
-        state.orders[index] = action.payload;
-        
-      })
+  state.loading = false;
+
+  const index = state.orders.findIndex(
+    (order) => order._id === action.payload._id
+  );
+
+  if (index !== -1) {
+    state.orders[index] = action.payload; // ✅ UI update
+  }
+})
+
       .addCase(updateOrderStatus.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
