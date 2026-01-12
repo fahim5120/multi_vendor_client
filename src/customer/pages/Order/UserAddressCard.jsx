@@ -1,3 +1,5 @@
+
+
 const UserAddressCard = ({ item }) => {
   return (
     <div className="p-5 border rounded-md">
@@ -5,7 +7,7 @@ const UserAddressCard = ({ item }) => {
         <h1 className="font-semibold">{item.name}</h1>
 
         <p className="w-[320px]">
-          {item.address}, {item.locality}, {item.city}, {item.state} -{" "}
+          {item.address}, {item.locality}, {item.state} -{" "}
           {item.pincode}
         </p>
 

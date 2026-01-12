@@ -6,46 +6,51 @@ import { useAppDispatch, useAppSelector } from "../../../Redux Toolkit/store";
 import {
   fetchOrderById,
   fetchOrderItemById,
+  cancelOrder,
 } from "../../../Redux Toolkit/features/customer/orderSlice";
 import { useParams } from "react-router";
 
 const OrderDetails = () => {
+ 
+   const  auth  = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
   const { orderItemId, orderId } = useParams();
   const { orderItem, currentOrder } = useAppSelector((store) => store.order);
 
   console.log("currentOrder 👉", currentOrder);
 
-  useEffect(() => {
-    dispatch(
-      fetchOrderItemById({
-        jwt: localStorage.getItem("jwt"),
-        orderItemId,
-      })
-    );
+ useEffect(() => {
+  if (!orderId || !orderItemId) return;
 
-    dispatch(
-      fetchOrderById({
-        jwt: localStorage.getItem("jwt"),
-        orderId: orderId,
-      })
-    );
-  }, [orderItemId]);
+  const jwt = localStorage.getItem("jwt");
+  if (!jwt) return;
+
+  dispatch(fetchOrderItemById({ jwt, orderItemId }));
+  dispatch(fetchOrderById({ jwt, orderId }));
+}, [dispatch, orderId, orderItemId]);
+
+
+if (!orderItem || !currentOrder) {
+  return (
+    <div className="h-[80vh] flex justify-center items-center">
+      Loading order details...
+    </div>
+  )
+}
+
+  const handleCancelOrder = () => {
+    dispatch(cancelOrder(orderId));
+  };
+
   return (
     <Box className="space-y-5">
       <section className="flex flex-col gap-5 justify-center items-center">
-        <img
-          className="w-[100px]"
-          src={orderItem?.product?.images[0]}
-          alt=""
-        />
+        <img className="w-[100px]" src={orderItem?.product?.images[0]} alt="" />
 
         <div className="text-sm space-y-1 text-center">
           <h1 className="font-semibold text-base">Buyza</h1>
 
-          <p className="text-gray-700">
-         { orderItem?.product?.title}
-          </p>
+          <p className="text-gray-700">{orderItem?.product?.title}</p>
 
           <p className="text-gray-600">
             <strong className="text-gray-800">Size :</strong> FREE
@@ -81,10 +86,18 @@ const OrderDetails = () => {
             <p className="font-bold">Total Item Price</p>
             <p>
               You saved{" "}
-              <span className="text-green-400">₹  {orderItem?.product?.mrpPrice-orderItem?.product?.sellingPrice}  on this item</span>
+              <span className="text-green-500">
+                ₹
+                {orderItem?.product?.mrpPrice -
+                  orderItem?.product?.sellingPrice}
+                .00
+              </span>{" "}
+              on this item
             </p>
           </div>
-          <p>₹ {orderItem?.product?.sellingPrice} </p>
+          {/* <p>₹ {orderItem ?.product?.sellingPrice} </p> */}
+       <p>₹ {orderItem?.product?.sellingPrice}.00 </p>
+
         </div>
         <div className="px-5 ">
           <div className="bg-teal-50 px-5 py-2 text-xs font-medium flex items-center gap-3">
@@ -96,17 +109,23 @@ const OrderDetails = () => {
         <Divider />
         <div className="px-5  pt-5">
           <p className="text-xs">
-            <strong>Sold by : </strong> Nesi clothing
+            <strong>Sold by : </strong>{" "}
+           {orderItem?.product?.seller?.businessDetails?.businessName || "Seller"}
+
           </p>
         </div>
         <div className="p-10">
           <Button
+            disabled={currentOrder?.orderStatus === "CANCELLED"}
+            onClick={handleCancelOrder}
             fullWidth
             variant="outlined"
             color="error"
             sx={{ textTransform: "none", fontWeight: "bold" }}
           >
-            CANCEL ORDER
+            {currentOrder?.orderStatus === "CANCELLED"
+              ? "order cancelled"
+              : "Cancel Order"}
           </Button>
         </div>
       </section>

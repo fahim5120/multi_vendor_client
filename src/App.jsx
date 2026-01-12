@@ -21,6 +21,7 @@ import { fetchUserProfile } from "./Redux Toolkit/features/customer/userSlice";
 import { fetchSellerProfile } from "./Redux Toolkit/features/seller/sellerSlice";
 import { createHomeCategories } from "./Redux Toolkit/features/customer/HomeCategorySlice";
 import { homeCategories } from "./data/homeCategories";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -43,6 +44,7 @@ dispatch(createHomeCategories(homeCategories))
 
   return (   
     <div>
+      <Toaster position="top-right" />
       <ThemeProvider theme={customeTheme}>
         {/* <Home/> */}
         {/* <Products/> */}

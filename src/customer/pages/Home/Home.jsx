@@ -5,8 +5,14 @@ import Deal from './Deals/Deal'
 import HomeCategory from './HomeCategory/HomeCategory'
 import Button from '@mui/material/Button'
 import StoreIcon from '@mui/icons-material/Store';
+import { useNavigate } from 'react-router'
 
 const Home = () => {
+  const navigate = useNavigate();
+
+   const becomeSellerClick = () => {
+        navigate("/become-seller")
+    }
   return (
     <div className="space-y-10"
     ><ElectronicCategory />
@@ -43,7 +49,10 @@ const Home = () => {
     <p className='text-lg md:text-2xl'>With 
       <strong className='logo text-3xl md:text-5xl pl-2'>Buyza</strong></p>
   <div className='pt-6 flex justify-center'>
-    <Button startIcon={<StoreIcon/>} variant="contained">Become seller</Button>
+    <Button 
+      onClick={becomeSellerClick}
+    startIcon={<StoreIcon/>}
+     variant="contained">Become seller</Button>
   </div>
   </div>
 </section>

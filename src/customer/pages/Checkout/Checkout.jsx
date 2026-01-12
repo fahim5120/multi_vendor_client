@@ -341,7 +341,7 @@ const paymentGatwayList = [
   },
   {
     value: "STRIPE",
-    image: "/stripe_logo.png",
+    image: "https://download.logo.wine/logo/Stripe_(company)/Stripe_(company)-Logo.wine.png",
     label: "Stripe",
   },
 ];

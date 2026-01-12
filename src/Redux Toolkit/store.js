@@ -13,6 +13,7 @@ import sellerOrderReducer from "./features/seller/sellerOrderSlice";
 import sellerProductReducer from "./features/seller/sellerProductSlice";
 import sellerReducer from "./features/seller/sellerSlice";
 import transactionReducer from "./features/seller/transactionSlice";
+import CustomerSlice from "./features/customer/customer/CustomerSlice";
 
 import adminSlice from "./features/admin/adminSlice";
 import dealSlice from "./features/admin/dealSlice";
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   coupon: couponReducer,
   homeCategory: homeCategoryReducer,
+  homePage: CustomerSlice,
 
   //seller reducer
   sellerAuth: sellerAuthReducer,

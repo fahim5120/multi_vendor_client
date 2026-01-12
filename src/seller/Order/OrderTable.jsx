@@ -213,6 +213,7 @@ import {
   fetchSellerOrders,
   updateOrderStatus,
 } from "../../Redux Toolkit/features/seller/sellerOrderSlice";
+import { fetchUserOrderHistory } from "../../Redux Toolkit/features/customer/orderSlice";
 
 /* ================= STYLES ================= */
 
@@ -272,6 +273,7 @@ export default function OrderTable() {
 
   /* ---------- UPDATE ORDER ---------- */
   const handleUpdateOrder = async (status) => {
+    const jwt = localStorage.getItem("jwt");
     if (!selectedOrderId) return;
 
     console.log(
@@ -291,6 +293,7 @@ export default function OrderTable() {
 
     // 🔥 refresh list to sync UI
     dispatch(fetchSellerOrders(localStorage.getItem("jwt")));
+    dispatch(fetchUserOrderHistory(jwt)); 
 
     handleClose();
   };

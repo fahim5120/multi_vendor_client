@@ -146,6 +146,7 @@ export const cancelOrder = createAsyncThunk(
         }
       );
       console.log("cancel order", response.data);
+      toast.success("Order cancelled successfully ❌📦");
       return response.data;
     } catch (error) {
       console.log("error", error?.response);
