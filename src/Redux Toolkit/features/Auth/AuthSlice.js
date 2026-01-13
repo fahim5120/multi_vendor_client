@@ -200,8 +200,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { resetUserState } from "../customer/userSlice";
 import { resetSellerAuthState, verifyLoginOtp } from "../seller/sellerAuthentication";
-import { api } from "../../../Config/Api";
+
 import { Navigate } from "react-router";
+import { api } from "../../../Config/Api";
 
 const API_URL = "/api/auth";
 

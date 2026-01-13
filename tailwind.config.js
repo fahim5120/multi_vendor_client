@@ -1,9 +1,10 @@
 export default {
+  
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        primary: "#00927c",
+        primary: "#a3e2d9",
         secondary: "#EAF0F1",
       },
       fontFamily: {

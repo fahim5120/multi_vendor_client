@@ -22,15 +22,15 @@ const Grid = () => {
             </div>
 
             <div className='col-span-4 row-span-6 text-white rounded-md'>
-                <img className="object-cover h-full w-full rounded-md" src={category[6].image} alt="" />
+                <img className="object-cover h-full w-full rounded-md" src={category[9].image} alt="" />
             </div>
 
             <div className='col-span-3 row-span-12 text-white rounded-md'>
-                <img className="object-cover h-full w-full rounded-md" src={category[2].image} alt="" />
+                <img className="object-cover h-full w-full rounded-md" src={category[6].image} alt="" />
             </div>
 
             <div className='col-span-4 row-span-6 text-white rounded-md'>
-                <img className="object-cover h-full w-full rounded-md" src={category[4].image} alt="" />
+                <img className="object-cover h-full w-full rounded-md" src={category[5].image} alt="" />
             </div>
 
             <div className='col-span-2 row-span-6 text-white rounded-md'>

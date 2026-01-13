@@ -9,7 +9,7 @@ const ReportCard = ({value,title,icon}) => {
     </div>
     <div>
       <p className="font-bold text-lg">{value}</p>
-      <p className="font-medium">title</p>
+      <p className="font-medium">{title}</p>
     </div>
   </div>
   )

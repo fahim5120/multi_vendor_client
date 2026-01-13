@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import HomePage from "../seller/HomePage/HomePage";
+// import HomePage from "../seller/HomePage/HomePage";
 import Products from "../seller/Products/Products";
 import AddProducts from "../seller/Products/AddProducts";
 import Order from "../seller/Order/Order";
 import Account from "../seller/Account/Account";
 import Payment from "../seller/Payment/Payment";
 import Transaction from "../seller/Transaction/Transaction";
+import HomePage from "../seller/SellerDashboard/HomePage";
 
 const SellerRoutes = () => {
   return (

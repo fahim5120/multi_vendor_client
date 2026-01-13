@@ -8,8 +8,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { useAppDispatch, useAppSelector } from "../../../Redux Toolkit/Store";
-import { fetchRevenueChart } from "../../../Redux Toolkit/Seller/revenueChartSlice";
+
+import { fetchRevenueChart } from "../../Redux Toolkit/features/seller/revenueChartSlice";
+import { useAppDispatch, useAppSelector } from "../../Redux Toolkit/store";
+
 
 const SellingChart = ({ chartType }) => {
   const dispatch = useAppDispatch();

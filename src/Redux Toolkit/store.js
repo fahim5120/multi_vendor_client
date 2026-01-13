@@ -14,7 +14,7 @@ import sellerProductReducer from "./features/seller/sellerProductSlice";
 import sellerReducer from "./features/seller/sellerSlice";
 import transactionReducer from "./features/seller/transactionSlice";
 import CustomerSlice from "./features/customer/customer/CustomerSlice";
-
+import revenueChartSlice from "./features/seller/revenueChartSlice";
 import adminSlice from "./features/admin/adminSlice";
 import dealSlice from "./features/admin/dealSlice";
 import AdmincouponReducer from "./features/admin/CouponSlice";
@@ -36,6 +36,7 @@ const rootReducer = combineReducers({
   sellerProduct: sellerProductReducer,
   seller: sellerReducer,
   transaction: transactionReducer,
+  revenueChart: revenueChartSlice,
 
   //admin reducer
   admin: adminSlice,

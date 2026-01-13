@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../../Config/Api";
 
+
 const API_URL = "/home";
 
 // Update home category

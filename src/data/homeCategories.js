@@ -243,7 +243,7 @@ export const homeCategories = [
     name: "Women Saree",
     categoryId: "women_sarees",
     section: "DEALS",
-    image: "https://rukminim2.flixcart.com/image/832/832/xif0q/sari/z/a/4/free-saree-new2023-simple-light-weight-saree-chiffon-print-saree-original-imagzyhp2azy7rwz.jpeg?q=70&crop=false",
+    image: "https://m.media-amazon.com/images/I/51moGh3DAML.jpg",
   },
   {
     name: "Smart Watches",

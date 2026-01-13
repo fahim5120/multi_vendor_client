@@ -78,10 +78,10 @@ dispatch(deleteDeal(id))
               </StyledTableCell>
 
               <StyledTableCell align="right">
-                {item.category.image}
+                {/* {item.category.image} */}
                 <img
                   className="w-20 rounded-md"
-                  src={""}
+                  src={item.category.image}
                   alt=""
                 />
               </StyledTableCell>

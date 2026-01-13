@@ -11,6 +11,7 @@ import {
   Select,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../Redux Toolkit/store";
+import { fetchSellerReport } from "../../Redux Toolkit/features/seller/sellerSlice";
 
 const Chart = [
   { name: "Today", value: "today" },
@@ -19,7 +20,7 @@ const Chart = [
 ];
 
 const HomePage = () => {
-  const { sellers } = useAppSelector((store) => store);
+  const { seller } = useAppSelector((store) => store);
   const dispatch = useAppDispatch();
   const [chartType, setChartType] = useState(Chart[0].value);
 
@@ -37,7 +38,7 @@ const HomePage = () => {
         <div className="col-span-4 md:col-span-2 lg:col-span-1">
           <ReportCard
             icon={<AccountBalanceIcon />}
-            value={"₹" + sellers.report?.totalEarnings}
+            value={"₹" + seller.report?.totalEarnings}
             title={"Total Earnings"}
           />
         </div>
@@ -45,7 +46,7 @@ const HomePage = () => {
         <div className="col-span-4 md:col-span-2 lg:col-span-1">
           <ReportCard
             icon={<AccountBalanceIcon />}
-            value={sellers.report?.totalSales}
+            value={seller.report?.totalSales}
             title={"Total Sales"}
           />
         </div>
@@ -53,7 +54,7 @@ const HomePage = () => {
         <div className="col-span-4 md:col-span-2 lg:col-span-1">
           <ReportCard
             icon={<AccountBalanceIcon />}
-            value={sellers.report?.totalRefunds}
+            value={seller.report?.totalRefunds}
             title={"Total Refund"}
           />
         </div>
@@ -61,7 +62,7 @@ const HomePage = () => {
         <div className="col-span-4 md:col-span-2 lg:col-span-1">
           <ReportCard
             icon={<AccountBalanceIcon />}
-            value={sellers.report?.canceledOrders}
+            value={seller.report?.canceledOrders}
             title={"Cancel Orders"}
           />
         </div>

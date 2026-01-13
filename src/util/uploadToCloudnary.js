@@ -21,8 +21,8 @@
  
 // };
 export const uploadToCloudinary = async (file) => {
-  const cloud_name = "dyael40bu";
-  const upload_preset = "buyzaa";
+  const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+  const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
   const url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
 

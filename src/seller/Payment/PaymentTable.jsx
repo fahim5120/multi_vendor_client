@@ -44,7 +44,7 @@
 //   createData("Gingerbread", 356, 16.0, 49, 3.9),
 // ];
 
-// export default function TransactionTable() {
+// export default function PaymentTable() {
 //   const dispatch = useAppDispatch();
 
 
@@ -86,87 +86,103 @@
 // }
 
 
-import * as React from "react";
+
+
+import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
-
-
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../Redux Toolkit/store";
-import { redableDateTime } from "../../util/redableDateTime";
-import { fetchTransactionsBySeller } from "../../Redux Toolkit/features/seller/transactionSlice";
 
-export default function TransactionTable() {
-  const { transaction } = useAppSelector((store) => store);
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+
+export default function PaymentTable() {
   const dispatch = useAppDispatch();
+  const { sellerOrder } = useAppSelector((store) => store);
 
-  React.useEffect(() => {
-    dispatch(fetchTransactionsBySeller(localStorage.getItem("jwt") || ""));
-  }, [dispatch]);
+//   useEffect(() => {
+//     dispatch(fetchPayoutsBySeller(localStorage.getItem("jwt") || ""));
+//   }, [dispatch]);
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Customer Details</TableCell>
-            <TableCell>Order</TableCell>
-            <TableCell align="right">Amount</TableCell>
+            <StyledTableCell>Date</StyledTableCell>
+            <StyledTableCell>Order Items</StyledTableCell>
+            <StyledTableCell align="right">Amount</StyledTableCell>
+            <StyledTableCell align="right">Status</StyledTableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {transaction?.transactions?.map((item) => (
-            <TableRow key={item._id}>
+          {sellerOrder?.orders?.map((order) => (
+            <StyledTableRow key={order._id}>
               {/* DATE */}
-              <TableCell align="left">
-                <div className="space-y-1">
-                  <h1 className="font-medium">
-                    {redableDateTime(item.date).split("at")[0]}
-                  </h1>
-                  <h1 className="text-xs text-gray-600 font-semibold">
-                    {redableDateTime(item.date).split("at")[1]}
-                  </h1>
+              <StyledTableCell>
+                <div>
+                  <p>{new Date(order.createdAt).toDateString()}</p>
+                  <p>{new Date(order.createdAt).toLocaleTimeString()}</p>
                 </div>
-              </TableCell>
+              </StyledTableCell>
 
-              {/* CUSTOMER */}
-              <TableCell component="th" scope="row">
-                <div className="space-y-2">
-                  <h1>{item.customer.fullName}</h1>
-                  <h1 className="font-semibold">{item.customer.email}</h1>
-                  <h1 className="font-bold text-gray-600">
-                    {item.customer.mobile}
-                  </h1>
+              {/* ORDER ITEMS */}
+              <StyledTableCell>
+                <div className="flex gap-3 flex-wrap">
+                  {order.orderItems.map((item) => (
+                    <div key={item._id} className="flex gap-3">
+                      <img
+                        src={item.product.images[0]}
+                        alt={item.product.title}
+                        className="w-16 h-20 rounded-md object-cover"
+                      />
+                      <div className="text-sm">
+                        <p><b>{item.product.title}</b></p>
+                        <p>₹{item.product.sellingPrice}</p>
+                        <p>Size: {item.size}</p>
+                        <p>Color: {item.product.color}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </TableCell>
-
-              {/* ORDER */}
-              <TableCell>
-                Order Id : <strong>{item.order._id}</strong>
-              </TableCell>
+              </StyledTableCell>
 
               {/* AMOUNT */}
-              <TableCell align="right">
-                ₹{item.order.totalSellingPrice}
-              </TableCell>
-            </TableRow>
-          ))}
+              <StyledTableCell align="right">
+                ₹{order.totalSellingPrice}
+              </StyledTableCell>
 
-          {/* EMPTY STATE */}
-          {transaction?.transactions?.length === 0 && (
-            <TableRow>
-              <TableCell colSpan={4} align="center">
-                No transactions found
-              </TableCell>
-            </TableRow>
-          )}
+              {/* STATUS */}
+              <StyledTableCell align="right">
+                {order.paymentStatus || "PENDING"}
+              </StyledTableCell>
+            </StyledTableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
