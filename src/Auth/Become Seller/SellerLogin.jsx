@@ -44,7 +44,7 @@ const handleSendOtp = () => {
 
   console.log("🟡 SEND OTP CLICKED:", email);
 
-  dispatch(sendLoginOTP(email)); // ✅ CORRECT
+  dispatch(sendLoginOtp(email)); // ✅ CORRECT
 };
 
 
