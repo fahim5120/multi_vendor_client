@@ -40,7 +40,7 @@ useEffect(() => {
     // },
 
     onSubmit: (values) => {
-      console.log(values);
+      console.log("SUBMITTING OTP:", values);
       
   dispatch(signin(values));   
 }
@@ -50,12 +50,14 @@ useEffect(() => {
   });
 
 const handleSentOtp = () => {
-  // const email = "signin_" + formik.values.email;
-    const email = formik.values.email;
-  console.log(email,"email------");
-  
-  dispatch(sendLoginSignupOtp({ email }));
+  dispatch(
+    sendLoginSignupOtp({
+      email: formik.values.email,
+      mode: "login",
+    })
+  );
 };
+
 
 
 console.log("AUTH AFTER LOGIN:", auth)
@@ -94,16 +96,16 @@ console.log("AUTH AFTER LOGIN:", auth)
           </div>
         )}
         <div>
-          <Button
-            onClick={auth.otpSent ? formik.handleSubmit : handleSentOtp}
-            variant="contained"
-            fullWidth
-            // type="submit"
-            sx={{ py: "12px" }}
-              type="button"
-          >
-            Login
-          </Button>
+         <Button
+  variant="contained"
+  fullWidth
+  type={auth.otpSent ? "submit" : "button"}
+  onClick={!auth.otpSent ? handleSentOtp : undefined}
+  sx={{ py: "12px" }}
+>
+  Login
+</Button>
+
         </div>
       </form>
     </div>
