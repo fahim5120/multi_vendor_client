@@ -4,8 +4,8 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 
 
-import { sendLoginOTP } from "../../../../backend/src/service/AuthService";
-import { verifyLoginOtp } from "../../Redux Toolkit/features/seller/sellerAuthentication";
+
+import { sendLoginOtp, verifyLoginOtp } from "../../Redux Toolkit/features/seller/sellerAuthentication";
 import { useAppDispatch, useAppSelector } from "../../Redux Toolkit/store";
 
 
