@@ -50,6 +50,9 @@ useEffect(() => {
   });
 
 const handleSentOtp = () => {
+  // 🔥 clear old otp before sending new one
+  formik.setFieldValue("otp", "");
+
   dispatch(
     sendLoginSignupOtp({
       email: formik.values.email,
