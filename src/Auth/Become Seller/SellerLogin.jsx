@@ -276,7 +276,8 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../Redux Toolkit/store";
 import { verifyLoginOtp } from "../../Redux Toolkit/features/seller/sellerAuthentication";
-import { sendLoginSignupOtp } from "../../Redux Toolkit/features/Auth/AuthSlice";
+import { sendLoginOtp } from "../../Redux Toolkit/features/seller/sellerAuthentication";
+
 
 const SellerLogin = () => {
   const auth = useAppSelector((store) => store.auth);
@@ -307,16 +308,17 @@ const SellerLogin = () => {
     },
   });
 
-  const handleSendOtp = () => {
-    const payload = {
-      email:"signin_"+formik.values.email,
-    };
+const handleSendOtp = () => {
+  const email = "signin_" + formik.values.email;
 
-    console.log("🟡 SEND OTP CLICKED");
-    console.log("📤 OTP PAYLOAD:", payload);
+  console.log("🟡 SEND OTP CLICKED:", email);
 
-    dispatch(sendLoginSignupOtp(payload));
-  };
+  dispatch(sendLoginOtp(email)); // ✅ CORRECT
+};
+
+
+ 
+  
 
   useEffect(() => {
     console.log("👀 useEffect WATCH sellerAuth.jwt =", sellerAuth.jwt);
@@ -341,23 +343,28 @@ const SellerLogin = () => {
         onChange={formik.handleChange}
       />
 
-      {auth.otpSent && (
-        <TextField
-          fullWidth
-          name="otp"
-          label="Enter OTP"
-          value={formik.values.otp}
-          onChange={formik.handleChange}
-        />
-      )}
+    {sellerAuth.otpSent && (
+  <TextField
+    fullWidth
+    name="otp"
+    label="Enter OTP"
+    value={formik.values.otp}
+    onChange={formik.handleChange}
+  />
+)}
 
       <Button
         fullWidth
         variant="contained"
         sx={{ py: "12px" }}
-        onClick={auth.otpSent ? formik.handleSubmit : handleSendOtp}
+      onClick={
+  sellerAuth.otpSent
+    ? formik.handleSubmit
+    : handleSendOtp
+}
       >
-        {auth.otpSent ? "Login" : "Send OTP"}
+       {sellerAuth.otpSent ? "Login" : "Send OTP"}
+
       </Button>
     </div>
   );
