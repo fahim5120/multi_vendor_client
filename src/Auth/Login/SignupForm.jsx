@@ -25,8 +25,7 @@ const SignupForm = () => {
  const handleSentOtp = () => {
   dispatch(
     sendLoginSignupOtp({
-      email: formik.values.email,
-      mode: "signup",   // 👈 THIS IS THE FIX
+  email: "signin_" + formik.values.email,
     })
   );
 };
