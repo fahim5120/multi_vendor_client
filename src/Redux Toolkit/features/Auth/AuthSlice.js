@@ -217,11 +217,12 @@ const initialState = {
 /* ===== SEND OTP ===== */
 export const sendLoginSignupOtp = createAsyncThunk(
   "auth/sendLoginSignupOtp",
-  async ({ email }, { rejectWithValue }) => {
+  async ({ email, mode }, { rejectWithValue }) => {
     try {
-      const response = await api.post(`${API_URL}/send/login-signup-otp`, { email });
-      console.log("response",response.data);
-      
+      const response = await api.post(
+        `${API_URL}/send/login-signup-otp`,
+        { email, mode }   // 👈 send mode
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -230,6 +231,7 @@ export const sendLoginSignupOtp = createAsyncThunk(
     }
   }
 );
+
 
 /* ===== SIGNUP ===== */
 // export const signup = createAsyncThunk(
