@@ -22,9 +22,15 @@ const SignupForm = () => {
     },
   });
 
-  const handleSentOtp = () => {
-    dispatch(sendLoginSignupOtp({ email: formik.values.email }));
-  };
+ const handleSentOtp = () => {
+  dispatch(
+    sendLoginSignupOtp({
+      email: formik.values.email,
+      mode: "signup",   // 👈 THIS IS THE FIX
+    })
+  );
+};
+
 
   useEffect(() => {
     if (auth.jwt) {
