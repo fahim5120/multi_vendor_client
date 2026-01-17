@@ -50,8 +50,8 @@ useEffect(() => {
   });
 
 const handleSentOtp = () => {
-  const email = "signin_" + formik.values.email;
-    // const email = formik.values.email;
+  // const email = "signin_" + formik.values.email;
+    const email = formik.values.email;
   console.log(email,"email------");
   
   dispatch(sendLoginSignupOtp({ email }));
