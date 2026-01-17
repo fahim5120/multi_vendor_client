@@ -297,7 +297,7 @@ export const signin = createAsyncThunk(
   async ({ email, otp }, { rejectWithValue }) => {
     try {
       const res = await api.post(`${API_URL}/signin`, { email, otp });
-      console.log("response" ,res.data);
+      console.log("SIGNIN API RESPONSE:" ,res.data);
       
       localStorage.setItem("jwt", res.data.jwt);
       // if(res.data.role==="ROLE_ADMIN"){
