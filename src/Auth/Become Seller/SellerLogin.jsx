@@ -309,7 +309,7 @@ const SellerLogin = () => {
 
   const handleSendOtp = () => {
     const payload = {
-      email: formik.values.email,
+      email:"signin_"+formik.values.email,
     };
 
     console.log("🟡 SEND OTP CLICKED");
