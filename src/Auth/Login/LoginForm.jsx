@@ -58,7 +58,7 @@ const handleSentOtp = () => {
 };
 
 
-
+console.log("AUTH AFTER LOGIN:", auth)
  
 
   return (
