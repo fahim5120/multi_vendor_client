@@ -21,6 +21,7 @@ const Navbar = () => {
 
   const [showSheet, setShowSheet] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("men");
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,10 +29,11 @@ const Navbar = () => {
     <Box className="sticky top-0 left-0 right-0 bg-white z-50">
       {/* NAVBAR */}
       <div className="flex items-center justify-between px-5 lg:px-20 h-[70px] border-b border-gray-300">
-        <div className="flex items-center gap-9">
+        {/* LEFT */}
+        <div className="flex items-center gap-4 lg:gap-9">
           <div className="flex items-center gap-2">
             {!isLarge && (
-              <IconButton>
+              <IconButton onClick={() => setMobileMenu(true)}>
                 <MenuIcon sx={{ fontSize: 29 }} />
               </IconButton>
             )}
@@ -43,27 +45,16 @@ const Navbar = () => {
             </h1>
           </div>
 
-          {/* MAIN CATEGORY */}
-          <ul className="flex items-center font-medium text-gray-800">
+          {/* MAIN CATEGORY – DESKTOP ONLY */}
+          <ul className="hidden lg:flex items-center font-medium text-gray-800">
             {mainCategory.map((item) => (
               <li
                 key={item.categoryid}
                 onMouseEnter={() => {
-                  if (isLarge) {
-                    setSelectedCategory(item.categoryid);
-                    setShowSheet(true);
-                  }
+                  setSelectedCategory(item.categoryid);
+                  setShowSheet(true);
                 }}
-                onMouseLeave={() => {
-                  if (isLarge) setShowSheet(false);
-                }}
-                onClick={() => {
-                  // 📱 MOBILE CLICK
-                  if (!isLarge) {
-                    setSelectedCategory(item.categoryid);
-                    setShowSheet(true);
-                  }
-                }}
+                onMouseLeave={() => setShowSheet(false)}
                 className="cursor-pointer hover:text-[#00927c] h-[70px] px-4 flex items-center"
               >
                 {item.name}
@@ -73,14 +64,14 @@ const Navbar = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3 lg:gap-5">
           <IconButton>
             <Search sx={{ fontSize: 29 }} />
           </IconButton>
 
           {user.user?.fullName ? (
             <Button
-              className="flex items-center gap-2"
+              className="hidden lg:flex items-center gap-2"
               onClick={() => navigate("/account")}
             >
               <Avatar sx={{ width: 29, height: 29 }} />
@@ -88,6 +79,7 @@ const Navbar = () => {
             </Button>
           ) : (
             <Button
+              className="hidden lg:flex"
               onClick={() => navigate("/login")}
               variant="contained"
               startIcon={<AccountCircle />}
@@ -116,20 +108,46 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* 📱 MOBILE CATEGORY MENU */}
+      {mobileMenu && !isLarge && (
+        <div className="fixed inset-0 bg-white z-40">
+          <div className="flex justify-between items-center px-5 py-4 border-b">
+            <h2 className="text-lg font-semibold">Categories</h2>
+            <button onClick={() => setMobileMenu(false)}>✕</button>
+          </div>
+
+          <ul className="p-5 space-y-4">
+            {mainCategory.map((item) => (
+              <li
+                key={item.categoryid}
+                className="text-lg font-medium cursor-pointer"
+                onClick={() => {
+                  setSelectedCategory(item.categoryid);
+                  setShowSheet(true);
+                  setMobileMenu(false);
+                }}
+              >
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* CATEGORY SHEET – DESKTOP + MOBILE */}
       {showSheet && (
         <div
-          className={`
+          className="
             fixed lg:absolute
             top-[70px] left-0 right-0
             bottom-0 lg:bottom-auto
             bg-white z-50
             overflow-auto
-          `}
+          "
           onMouseEnter={() => isLarge && setShowSheet(true)}
           onMouseLeave={() => isLarge && setShowSheet(false)}
         >
-          {/* Mobile close button */}
+          {/* Mobile close */}
           {!isLarge && (
             <button
               className="px-5 py-3 text-sm text-gray-600"
@@ -150,6 +168,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
 
 
